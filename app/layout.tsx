@@ -6,7 +6,7 @@ const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
-const monsterrat = Geist({
+const monsterrat = Montserrat({
   variable: "--font-monsterrat",
   subsets: ["latin"],
 });

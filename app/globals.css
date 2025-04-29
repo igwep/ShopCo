@@ -11,3 +11,12 @@
   --breakpoint-md: 1200px;
 }
 
+@keyframes moveIcon {
+  0%   { transform: translateX(0)   translateY(-50%); }
+  100% { transform: translateX(-200vw) translateY(-50%); }
+}
+
+.animate-moveIcon {
+  animation: moveIcon linear infinite;
+  left: calc(100% + 40 * 2rem),
+}

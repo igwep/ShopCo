@@ -8,7 +8,7 @@ const NavBar = () => {
 
   return (
     <nav className="flex justify-center py-4 bg-white shadow-md relative z-50">
-      <div className="flex items-center gap-10 w-full  justify-between px-8 md:px-34 3xl:px-64">
+      <div className="flex items-center gap-10 w-full  justify-between px-4 md:px-34 3xl:px-64">
         {/* Logo */}
         <div className="flex flex-row items-center gap-2">
           <Image 
