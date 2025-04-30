@@ -1,6 +1,7 @@
  import NavBar from "./Components/Navbar/NavBar";
 import HeroSection from "./Components/home/hero/Hero";
 import IconCarousel from "./Components/IconCarousel";
+import { NewArrivals } from "./Components/home/ShopPreview/NewArrivals";
 
 const icons = [
   { src: "/SVG/kelvin.svg", alt: "Calvin" },
@@ -12,13 +13,11 @@ const icons = [
 
 export default function Home() {
   return (
- <div>
+ <div className="font-monsterrat">
 <NavBar />
 <HeroSection />
 <IconCarousel icons={icons}   />
-<section className="h-[100dvh]">
-  s
-</section>
+<NewArrivals />
 
  </div>
   );
