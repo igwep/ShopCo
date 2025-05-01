@@ -1,0 +1,48 @@
+"use client";
+import React from 'react'
+//import useFetchProducts from '@/app/hooks/FetchProducts'
+import useFetchProductsFromFireStore from '@/app/hooks/FetchProductFIreStore';
+import ProductCards from '../../ProductCards';
+import ViewAllBtn from '../../buttons/ViewAllBtn';
+//import { uploadFakeProducts } from '../../../hooks/GenerateData'// Assuming this is the correct path to your function
+///import { useEffect } from 'react';
+
+export const NewArrivals = () => {
+   /*  const { data, loading, error } = useFetchProducts("https://dummyjson.com/products")
+     if (loading) return <div>Loading...</div>   
+    if (error) return <div>Error: {error}</div>
+    if (!data) return <div>No data found</div>
+    console.log('data', data)  */
+    /*  useEffect(() => {
+      uploadFakeProducts(10); // generates and uploads 10 products
+    }, []);  */
+
+     const { data, loading, error } = useFetchProductsFromFireStore(); 
+
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
+    console.log(data);  
+    const topThreeProducts = data.slice(0, 4);
+    const topSellingProducts = data
+    .filter(product => product.rating) // Ensure the product has a rating
+    .sort((a, b) => b.rating - a.rating) // Sort by rating in descending order
+    .slice(0, 4); // Get the top 4 products
+  return (
+    <section className=' w-full h-[100vh] space-y-12  md:px-34 3xl:px-64 px-8'>
+        <h1 className='md:text-5xl text-3xl text-center w-full font-black mt-12'>
+            Explore Our Products
+        </h1>
+        <div className='flex flex-col space-y-6 justify-center   items-center w-full '>
+        <ProductCards products={topThreeProducts} />
+        <ViewAllBtn />
+        </div>
+        <div className='border border-gray-300'>
+        </div>
+        <div className='flex flex-col space-y-6 justify-center items-center w-full '>
+          <h2 className='md:text-5xl text-3xl text-center w-full font-black mt-12'>Top Selling</h2>
+          <ProductCards products={topSellingProducts} />
+          <ViewAllBtn />
+        </div>
+    </section>
+ )
+}

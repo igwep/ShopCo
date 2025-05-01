@@ -18,8 +18,8 @@ const StatsCounter = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-black mb-2">
             {startCount && <CountUp end={200} duration={2} />}+
           </h2>
-          <p className="text-gray-600 text-sm md:text-base uppercase tracking-wide">
-            International Brands
+          <p className="text-gray-600 text-sm  uppercase tracking-wide">
+          Lifestyle Products
           </p>
         </div>
 
@@ -28,8 +28,8 @@ const StatsCounter = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-black mb-2">
             {startCount && <CountUp end={2000} duration={2.5} />}+
           </h2>
-          <p className="text-gray-600 text-sm md:text-base uppercase tracking-wide">
-            High-Quality Products
+          <p className="text-gray-600 text-sm  uppercase tracking-wide">
+          Comfort-Focused Designs
           </p>
         </div>
 
@@ -39,7 +39,7 @@ const StatsCounter = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-black mb-2">
               {startCount && <CountUp end={30000} duration={3} />}+
             </h2>
-            <p className="text-gray-600 text-sm md:text-base uppercase tracking-wide">
+            <p className="text-gray-600 text-sm  uppercase tracking-wide">
               Happy Customers
             </p>
           </div>

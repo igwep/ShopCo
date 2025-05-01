@@ -4,21 +4,46 @@ import { db } from "../Firebase";
 import { collection, getDocs } from "firebase/firestore";
 
 interface Product {
-    id: string;
-    title: string;
-    price: number;
-    description: string;
-    images: string[];
-    category: {
-      id: number;
-      name: string;
-      image: string;
-      slug: string;
-    };
+  id: string;
+  title: string;
+  price: number;
+  description: string;
+  images: string[];
+  category: {
+    id: number;
+    name: string;
+    image: string;
     slug: string;
-    createdAt: string;
-    updatedAt: string;
-  }
+  };
+  slug: string;
+  createdAt: string;
+  updatedAt: string;
+  availabilityStatus?: string;
+  brand?: string;
+  dimensions?: {
+    depth: number;
+    height: number;
+    width: number;
+  };
+  discountPercentage?: number;
+  rating?: number;
+  returnPolicy?: string;
+  reviews?: {
+    rating: number;
+    comment: string;
+    date: string;
+    reviewerName: string;
+    reviewerEmail: string;
+  }[];
+  shippingInformation?: string;
+  sku?: string;
+  stock?: number;
+  tags?: string[];
+  thumbnail?: string;
+  warrantyInformation?: string;
+  weight?: number;
+}
+
 
   const useFetchProductsFromFireStore = () => { 
 
@@ -30,7 +55,7 @@ interface Product {
       const fetchProducts = async () => {
         try {
           setLoading(true);
-          const querySnapshot = await getDocs(collection(db, "clothingProducts"));
+          const querySnapshot = await getDocs(collection(db, "Products"));
           const products: Product[] = querySnapshot.docs.map(doc => ({
             id: doc.id,
             ...doc.data(),

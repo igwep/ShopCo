@@ -8,15 +8,17 @@ import { getFirestore } from "firebase/firestore";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 // USE DOTENV FILE FOR SENSITIVE DATA
+
 const firebaseConfig = {
-  apiKey: "AIzaSyCTZhs6yzNc_fPofBA8CRBozrGjyYs2F80",
-  authDomain: "shopco-4e99d.firebaseapp.com",
-  projectId: "shopco-4e99d",
-  storageBucket: "shopco-4e99d.firebasestorage.app",
-  messagingSenderId: "370626007565",
-  appId: "1:370626007565:web:8f731448da7917cfefbb44",
-  measurementId: "G-MSK6Q0PNSJ"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

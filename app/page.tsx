@@ -1,7 +1,7 @@
  import NavBar from "./Components/Navbar/NavBar";
 import HeroSection from "./Components/home/hero/Hero";
 import IconCarousel from "./Components/IconCarousel";
-import { NewArrivals } from "./Components/home/ShopPreview/NewArrivals";
+import { NewArrivals } from "./Components/home/ShopPreview/Previews";
 
 const icons = [
   { src: "/SVG/kelvin.svg", alt: "Calvin" },
