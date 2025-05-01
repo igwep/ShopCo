@@ -1,24 +1,52 @@
 "use client";
  import { useEffect, useState} from "react";
- import { setDoc, doc } from "firebase/firestore";
- import {db} from "../Firebase";
- interface Product {
+ //import { setDoc, doc, getDoc } from "firebase/firestore";
+ //import {db} from "../Firebase";
+interface Product {
+  id: string;
+  title: string;
+  price: number;
+  description: string;
+  images: string[];
+  category: {
     id: number;
-    title: string;
-    price: number;
-    description: string;
-    images: string[];
-    category: {
-      id: number;
-      name: string;
-      image: string;
-      slug: string;
-    };
+    name: string;
+    image: string;
     slug: string;
-    creationAt: string;
-    updatedAt: string;
-   // type?: 'casual' | 'formal' | 'party' | 'gym' | 'uncategorized'; 
-  }
+  };
+  slug: string;
+  createdAt: string;
+  updatedAt: string;
+  availabilityStatus?: string;
+  brand?: string;
+  dimensions?: {
+    depth: number;
+    height: number;
+    width: number;
+  };
+  discountPercentage?: number;
+  rating?: number;
+  returnPolicy?: string;
+  reviews?: {
+    rating: number;
+    comment: string;
+    date: string;
+    reviewerName: string;
+    reviewerEmail: string;
+  }[];
+  shippingInformation?: string;
+  sku?: string;
+  stock?: number;
+  tags?: string[];
+  thumbnail?: string;
+  warrantyInformation?: string;
+  weight?: number;
+}
+interface FetchResponse {
+  limit: number;
+  products: Product[];
+}
+
   /* const determineClothingType = (product: Product): Product["type"] => {
     const text = `${product.title} ${product.description}`.toLowerCase();
   
@@ -48,8 +76,8 @@
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
-                const result: Product[] = await response.json();
-                console.log('result', result)
+                const result: FetchResponse = await response.json();
+                console.log('result', result.products)
                /*  const filtered = result
                 .filter((product) => product.category?.name?.toLowerCase() === "clothes")
                 .map((product) => ({
@@ -57,24 +85,29 @@
                   type: determineClothingType(product),
                 }));
               */
-                setData(result);
+                setData(result.products);
                /*  await Promise.all(
                     filtered.map(async (product) => {
                       const docRef = doc(db, "clothingProducts", product.id.toString());
                       await setDoc(docRef, product); // Overwrites if exists
                     })
                   ); */
-                  for (const product of result) {
+                 /*  for (const product of data) {
                     try {
                       if (product.id) {
-                        const docRef = doc(db, "clothingProducts", product.id.toString());
-                        await setDoc(docRef, product); // Overwrites if exists
-                        console.log(`Uploaded product ${product.id}`);
+                        const docRef = doc(db, "Products", product.id.toString());
+                        const docSnap = await getDoc(docRef);
+                        if (!docSnap.exists()) {
+                          await setDoc(docRef, product);
+                          console.log(`Uploaded product ${product.id}`);
+                        } else {
+                          console.log(`Product ${product.id} already exists, skipping...`);
+                        }
                       }
                     } catch (uploadErr) {
                       console.error("Upload error for product", product.id, uploadErr);
                     }
-                  }
+                  } */
             } catch (error:any) {
                 setError(error.message || "Something went wrong");
             } finally {

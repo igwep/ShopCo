@@ -2,8 +2,11 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
-  images: {
+ /*  images: {
     domains: ['i.imgur.com'],
+  }, */
+  images: {
+    domains: ['cdn.dummyjson.com'],
   },
 };
 

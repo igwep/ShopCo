@@ -8,10 +8,10 @@ const HeroSection = () => {
         {/* Text Content */}
         <div className="md:w-1/2 z-30 md:mt-4 3xl:mt-12 3xl:space-y-9 order-1 md:order-none md:py-0 pt-4 px-4 md:px-0 3xl:px-0">
           <h1 className="text-4xl md:text-6xl max-w-[35rem] font-montserrat font-black text-black mb-6">
-            FIND CLOTHES THAT MATCHES YOUR STYLE
+          Lifestyle. Comfort. Convenience
           </h1>
           <p className="text-lg text-gray-600 font-montserrat mb-6">
-            Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style
+          Embrace a lifestyle of comfort and convenience with every product, designed to enhance your daily living.
           </p>
           <button className="bg-black text-white w-full md:w-auto font-semibold py-4 px-16 rounded-full transition duration-300 hover:opacity-90">
             Shop Now

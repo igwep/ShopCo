@@ -20,3 +20,11 @@
   animation: moveIcon linear infinite;
   left: calc(100% + 40 * 2rem),
 }
+.scrollbar-none {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, and Opera */
+}
