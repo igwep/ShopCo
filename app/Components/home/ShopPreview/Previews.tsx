@@ -28,8 +28,8 @@ export const NewArrivals = () => {
     .sort((a, b) => b.rating - a.rating) // Sort by rating in descending order
     .slice(0, 4); // Get the top 4 products
   return (
-    <section className=' w-full h-[100vh] space-y-12  md:px-34 3xl:px-64 px-8'>
-        <h1 className='md:text-5xl text-3xl text-center w-full font-black mt-12'>
+    <section className=' w-full h-auto space-y-12 py-12 md:px-34 3xl:px-64 px-8'>
+        <h1 className='md:text-5xl text-3xl text-center w-full font-black '>
             Explore Our Products
         </h1>
         <div className='flex flex-col space-y-6 justify-center   items-center w-full '>
