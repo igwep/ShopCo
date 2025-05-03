@@ -142,17 +142,35 @@ Will definitely recommend to friends.`,
 ];
 
 
+
 const ReviewCarousel = () => {
-  const visible = 3.2;               // <-- show 3 cards instead of 4
-  const total = reviews.length;
-  const [idx, setIdx] = useState(visible);
+  const [visible, setVisible] = useState(3.2);
+  const [idx, setIdx] = useState(3.2);
   const [withTransition, setWithTransition] = useState(true);
   const track = useRef<HTMLDivElement>(null);
 
+  // Responsive visible count
+  useEffect(() => {
+    const updateVisible = () => {
+      const width = window.innerWidth;
+      if (width < 768) {
+        setVisible(1);
+        setIdx(1);
+      } else {
+        setVisible(3.2);
+        setIdx(3.2);
+      }
+    };
+    updateVisible();
+    window.addEventListener("resize", updateVisible);
+    return () => window.removeEventListener("resize", updateVisible);
+  }, []);
+
+  const total = reviews.length;
   const slides = [
-    ...reviews.slice(-visible),
+    ...reviews.slice(-Math.ceil(visible)),
     ...reviews,
-    ...reviews.slice(0, visible),
+    ...reviews.slice(0, Math.ceil(visible)),
   ];
   const N = slides.length;
 
@@ -161,8 +179,8 @@ const ReviewCarousel = () => {
     const pct = (idx / N) * 100;
     track.current.style.transform = `translateX(-${pct}%)`;
     track.current.style.transition = withTransition
-      ? 'transform 0.5s ease-in-out'
-      : 'none';
+      ? "transform 0.5s ease-in-out"
+      : "none";
   }, [idx, withTransition, N]);
 
   const onEnd = () => {
@@ -188,9 +206,9 @@ const ReviewCarousel = () => {
   const next = () => withTransition && setIdx(i => i + 1);
 
   return (
-    <div className="relative md:py-16 ">
+    <div className="relative md:pt-16 pb-36">
       {/* Header */}
-      <div className="flex justify-between items-center mb-4   md:px-34 3xl:px-64 px-4">
+      <div className="flex justify-between items-center mb-4 md:px-34 3xl:px-64 px-4">
         <h1 className="md:text-5xl text-3xl font-black">OUR HAPPY CUSTOMERS</h1>
         <div className="flex gap-2">
           <button onClick={prev} className="p-2 hover:scale-110 transition">
@@ -204,28 +222,29 @@ const ReviewCarousel = () => {
 
       <div className="relative w-full overflow-hidden px-4">
         {/* Left blur overlay */}
-        <div
-          className="absolute inset-y-0 left-0 pointer-events-none backdrop-blur-[1px] bg-white/30 z-40"
-          style={{ width: '130px' }}
-        />
-        {/* Right blur overlay */}
-        <div
-          className="absolute inset-y-0 right-0 pointer-events-none backdrop-blur-[1px] bg-white/30 z-40"
-          style={{ width: '130px' }}
-        />
+      {/* Left blur overlay */}
+<div
+  className="absolute inset-y-0 left-0 pointer-events-none backdrop-blur-[1px] bg-white/30 z-40 w-[40px] md:w-[130px]"
+/>
+
+{/* Right blur overlay */}
+<div
+  className="absolute inset-y-0 right-0 pointer-events-none backdrop-blur-[1px] bg-white/30 z-40 w-[40px] md:w-[130px]"
+/>
+
 
         <div className="overflow-hidden">
           <div
             ref={track}
             className="flex"
-            style={{ width: `${(N / visible) * 100}%` }}  // track is wider because fewer visible slots
+            style={{ width: `${(N / visible) * 100}%` }}
             onTransitionEnd={onEnd}
           >
             {slides.map((r, i) => (
               <div
                 key={`${r.id}-${i}`}
                 className="p-2"
-                style={{ width: `${100 / visible}%` }}    // now ~33.33% per card
+                style={{ width: `${100 / visible}%` }}
               >
                 <div className="bg-white p-6 rounded-xl border border-gray-300 shadow-md h-full">
                   <div className="flex mb-2">
@@ -233,7 +252,7 @@ const ReviewCarousel = () => {
                       <span
                         key={j}
                         className={`text-xl ${
-                          j < r.rating ? 'text-yellow-400' : 'text-gray-300'
+                          j < r.rating ? "text-yellow-400" : "text-gray-300"
                         }`}
                       >
                         ★
@@ -244,7 +263,7 @@ const ReviewCarousel = () => {
                     <span className="text-lg">{r.author}</span>
                     <Image src="/SVG/check.svg" alt="verified" width={20} height={20} />
                   </div>
-                  <p className="text-gray-700 italic">&quot;{r.text}&quot;</p>
+                  <p className="text-gray-700 italic">"{r.text}"</p>
                 </div>
               </div>
             ))}
