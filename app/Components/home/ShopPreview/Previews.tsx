@@ -2,7 +2,7 @@
 import React from 'react'
 //import useFetchProducts from '@/app/hooks/FetchProducts'
 import useFetchProductsFromFireStore from '@/app/hooks/FetchProductFIreStore';
-import ProductCards from '../../ProductCards';
+import ProductCard from '../../ProductCards';
 import ViewAllBtn from '../../buttons/ViewAllBtn';
 import { Product } from '@/app/types/Product';
 //import { uploadFakeProducts } from '../../../hooks/GenerateData'// Assuming this is the correct path to your function
@@ -35,14 +35,23 @@ export const NewArrivals = () => {
             Explore Our Products
         </h1>
         <div className='flex flex-col space-y-6 justify-center   items-center w-full '>
-        <ProductCards products={topThreeProducts} />
+        <div className="overflow-x-auto scrollbar-none w-full">
+  <div className="flex gap-4 flex-nowrap px-4">
+    <ProductCard products={topThreeProducts} />
+  </div>
+</div>
+
         <ViewAllBtn />
         </div>
         <div className='border border-gray-200'>
         </div>
         <div className='flex flex-col space-y-6 justify-center items-center w-full '>
           <h2 className='md:text-5xl text-3xl text-center w-full font-black mt-12'>Top Selling</h2>
-          <ProductCards products={topSellingProducts} />
+          <div className="overflow-x-auto scrollbar-none w-full">
+  <div className="flex gap-4 flex-nowrap px-4">
+    <ProductCard products={topSellingProducts} />
+  </div>
+</div>
           <ViewAllBtn />
         </div>
     </section>
