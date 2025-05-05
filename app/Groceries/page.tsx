@@ -14,9 +14,9 @@ const GroceriesSection = () => {
 
   return (
     <div className='w-full h-auto space-y-12 py-12 md:px-34 3xl:px-64 px-4 '>
-       <div className='grid  w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+       
        <ProductCard products={groceryProducts}  />
-       </div>
+
     </div>
   )
 }
