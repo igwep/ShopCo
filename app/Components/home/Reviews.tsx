@@ -211,17 +211,15 @@ const ReviewCarousel = () => {
       <div className="flex justify-between items-center mb-4 md:px-34 3xl:px-64 px-4">
         <h1 className="md:text-5xl text-3xl font-black">OUR HAPPY CUSTOMERS</h1>
         <div className="flex gap-2">
-          <button onClick={prev} className="p-2 hover:scale-110 transition">
-            <Image src="/SVG/arrow-down-bold 2.svg" alt="prev" width={20} height={20} />
+          <button onClick={prev} className="p-2 hover:scale-110 transition ">
+            <Image src="/SVG/arrow-down-bold 2.svg" alt="prev" width={30} height={20} />
           </button>
-          <button onClick={next} className="p-2 hover:scale-110 transition">
-            <Image src="/SVG/forwardArrow.svg" alt="next" width={20} height={20} />
+          <button onClick={next} className="p-2 hover:scale-110 transition ">
+            <Image src="/SVG/forwardArrow.svg" alt="next" width={30} height={20} />
           </button>
         </div>
       </div>
-
       <div className="relative w-full overflow-hidden px-4">
-        {/* Left blur overlay */}
       {/* Left blur overlay */}
 <div
   className="absolute inset-y-0 left-0 pointer-events-none backdrop-blur-[1px] bg-white/30 z-40 w-[40px] md:w-[130px]"
@@ -231,8 +229,6 @@ const ReviewCarousel = () => {
 <div
   className="absolute inset-y-0 right-0 pointer-events-none backdrop-blur-[1px] bg-white/30 z-40 w-[40px] md:w-[130px]"
 />
-
-
         <div className="overflow-hidden">
           <div
             ref={track}
@@ -263,7 +259,7 @@ const ReviewCarousel = () => {
                     <span className="text-lg">{r.author}</span>
                     <Image src="/SVG/check.svg" alt="verified" width={20} height={20} />
                   </div>
-                  <p className="text-gray-700 italic">"{r.text}"</p>
+                  <p className="text-gray-700 italic">&quot;{r.text}&quot;</p>
                 </div>
               </div>
             ))}

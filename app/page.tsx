@@ -1,10 +1,9 @@
- import NavBar from "./Components/Navbar/NavBar";
+
 import HeroSection from "./Components/home/hero/Hero";
 import IconCarousel from "./Components/IconCarousel";
 import { NewArrivals } from "./Components/home/ShopPreview/Previews";
 import CategorySection from "./Components/home/CategorySection";
 import ReviewCarousel from "./Components/home/Reviews";
-import { Footer } from "./Components/Footer";
 
 const icons = [
   { src: "/SVG/kelvin.svg", alt: "Calvin" },
@@ -17,13 +16,11 @@ const icons = [
 export default function Home() {
   return (
  <div className="font-monsterrat">
-<NavBar />
 <HeroSection />
 <IconCarousel icons={icons}   />
 <NewArrivals />
 <CategorySection />
 <ReviewCarousel />
-<Footer />
  </div>
   );
 }

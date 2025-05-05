@@ -4,6 +4,7 @@ import React from 'react'
 import useFetchProductsFromFireStore from '@/app/hooks/FetchProductFIreStore';
 import ProductCards from '../../ProductCards';
 import ViewAllBtn from '../../buttons/ViewAllBtn';
+import { Product } from '@/app/types/Product';
 //import { uploadFakeProducts } from '../../../hooks/GenerateData'// Assuming this is the correct path to your function
 ///import { useEffect } from 'react';
 
@@ -24,11 +25,12 @@ export const NewArrivals = () => {
     console.log(data);  
     const topThreeProducts = data.slice(0, 4);
     const topSellingProducts = data
-    .filter(product => product.rating) // Ensure the product has a rating
-    .sort((a, b) => b.rating - a.rating) // Sort by rating in descending order
-    .slice(0, 4); // Get the top 4 products
+  .filter((product): product is Product & { rating: number } => typeof product.rating === 'number')
+  .sort((a, b) => b.rating - a.rating)
+  .slice(0, 4);
+
   return (
-    <section className=' w-full h-auto space-y-12 py-12 md:px-34 3xl:px-64 px-8'>
+    <section className=' w-full h-auto space-y-12 py-12 md:px-34 3xl:px-64 px-4'>
         <h1 className='md:text-5xl text-3xl text-center w-full font-black '>
             Explore Our Products
         </h1>
@@ -36,7 +38,7 @@ export const NewArrivals = () => {
         <ProductCards products={topThreeProducts} />
         <ViewAllBtn />
         </div>
-        <div className='border border-gray-300'>
+        <div className='border border-gray-200'>
         </div>
         <div className='flex flex-col space-y-6 justify-center items-center w-full '>
           <h2 className='md:text-5xl text-3xl text-center w-full font-black mt-12'>Top Selling</h2>

@@ -1,45 +1,6 @@
 import Image from "next/image";
+import { Product } from "../types/Product";
 
-interface Product {
-  id: string;
-  title: string;
-  price: number;
-  description: string;
-  images: string[];
-  category: {
-    id: number;
-    name: string;
-    image: string;
-    slug: string;
-  };
-  slug: string;
-  createdAt: string;
-  updatedAt: string;
-  availabilityStatus?: string;
-  brand?: string;
-  dimensions?: {
-    depth: number;
-    height: number;
-    width: number;
-  };
-  discountPercentage?: number;
-  rating?: number;
-  returnPolicy?: string;
-  reviews?: {
-    rating: number;
-    comment: string;
-    date: string;
-    reviewerName: string;
-    reviewerEmail: string;
-  }[];
-  shippingInformation?: string;
-  sku?: string;
-  stock?: number;
-  tags?: string[];
-  thumbnail?: string;
-  warrantyInformation?: string;
-  weight?: number;
-}
 
 interface ProductCardsProps {
   products: Product[];

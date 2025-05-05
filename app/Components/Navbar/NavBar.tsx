@@ -34,7 +34,6 @@ const NavBar = () => {
             className="relative flex items-center gap-1 cursor-pointer hover:text-black"
             onMouseEnter={() => setShowDropdown(true)}
             onClick={() => setShowDropdown(!showDropdown)}
-        
           >
             <span>Shop</span>
             <Image
@@ -51,24 +50,25 @@ const NavBar = () => {
                 <a href="#" className="block px-4 py-2 hover:bg-gray-100">
                   All Products
                 </a>
-                <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-                  Clothing
+                <a href="/Beauty" className="block px-4 py-2 hover:bg-gray-100">
+                  Beauty
+                </a>
+                <a href="/Fragrances" className="block px-4 py-2 hover:bg-gray-100">
+                  Fragrances
                 </a>
                 <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-                  Accessories
+                  Furnitures
                 </a>
                 <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-                  Shoes
+                  Groceries
                 </a>
               </div>
             )}
           </div>
-
           <a href="#" className="hover:text-black">On Sale</a>
           <a href="#" className="hover:text-black">New Arrivals</a>
           <a href="#" className="hover:text-black">Brand</a>
         </div>
-
         {/* Search Bar */}
         <div className="md:flex hidden flex-1 max-w-2xl items-center rounded-full px-3 py-3 bg-gray-100">
           <Image
@@ -84,7 +84,6 @@ const NavBar = () => {
             className="flex-1 bg-transparent outline-none text-sm"
           />
         </div>
-
         {/* Cart and Profile */}
         <div className="flex items-center md:gap-6 gap-3">
         <button className="relative">
@@ -96,7 +95,6 @@ const NavBar = () => {
               className="w-6 h-auto"
             />
           </button>
-          
           <button className="relative">
             <Image
               width={100}

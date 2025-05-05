@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 const CategorySection = () => {
   return (
-    <div className='min-h-screen md:px-34 3xl:px-64 px-8 py-8'>
+    <div className='min-h-screen md:px-34 3xl:px-64 px-4 py-8'>
       <div className='bg-[#F0F0F0] md:px-8 px-4 py-8 rounded-4xl'>
         <h1 className='md:text-5xl text-3xl text-center w-full font-black '>Shop by Category</h1>
         <div className='mt-8 space-y-8'>
@@ -28,7 +28,7 @@ const CategorySection = () => {
                 objectFit="cover"
                 className='w-full h-full  transform transition-transform duration-300 group-hover:scale-110'
               />
-              <h2 className='text-xl  md:relative  absolute top-0 left-2 font-semibold mt-2 p-2 z-40 '>Fragnance</h2>
+              <h2 className='text-xl  md:relative  absolute top-0 left-2 font-semibold mt-2 p-2 z-40 '>Fragrances</h2>
             </div>
           </div>
           {/* Second Row */}
@@ -41,7 +41,7 @@ const CategorySection = () => {
                 height={150}
                 className='w-full h-full object-cover rounded-lg transform transition-transform duration-300 group-hover:scale-110'
               />
-              <h2 className='text-xl font-semibold mt-2 p-2 z-40'>Furniture</h2>
+              <h2 className='text-xl font-semibold mt-2 p-2 z-40'>Furnitures</h2>
             </div>
             <div className='bg-white w-full md:w-[45%] h-[289px] flex flex-row-reverse rounded-lg shadow-md overflow-hidden group'>
               <Image
