@@ -22,7 +22,7 @@ export const NewArrivals = () => {
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
-    console.log(data);  
+   // console.log(data);  
     const topThreeProducts = data.slice(0, 4);
     const topSellingProducts = data
   .filter((product): product is Product & { rating: number } => typeof product.rating === 'number')

@@ -13,7 +13,7 @@ const BeautySection = () => {
     if (error) return <div>Error: {error}</div>;
 
     const beautyProducts = data.filter((product: Product) => product.category === "beauty");
-    console.log(beautyProducts, "beautyProducts")
+    //console.log(beautyProducts, "beautyProducts")
 
   return (
     <div>

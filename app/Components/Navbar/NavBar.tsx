@@ -50,7 +50,7 @@ const NavBar = () => {
               <div
               onMouseLeave={() => setShowDropdown(false)}
               className="absolute  top-full left-0 mt-2 w-48 bg-white border shadow-md rounded-md z-50">
-                <a href="#" className="block px-4 py-2 hover:bg-gray-100">
+                <a href="/Shop" className="block px-4 py-2 hover:bg-gray-100">
                   All Products
                 </a>
                 <a href="/Beauty" className="block px-4 py-2 hover:bg-gray-100">

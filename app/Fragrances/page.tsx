@@ -10,7 +10,7 @@ const FragranceSection = () => {
     if (error) return <div>Error: {error}</div>;
 
     const FragranceProducts = data.filter((product: Product) => product.category === "fragrances");
-    console.log(FragranceProducts, "FragranceProducts")
+   // console.log(FragranceProducts, "FragranceProducts")
 
   return (
     <div>

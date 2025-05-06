@@ -46,7 +46,7 @@ const ProductCard: React.FC<ProductCardsProps> = ({ products }) => {
                 sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, 50vw"
               />
             </div>
-            <h3 className="text-start font-bold mb-1 h-12 line-clamp-2">
+            <h3 className="text-start font-bold mb-1 h-10 line-clamp-2">
               {product.title}
             </h3>
             <div className="flex items-center justify-start text-yellow-500 mb-1">

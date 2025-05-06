@@ -9,7 +9,7 @@ const FurnitureSection = () => {
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
     const FurnitureProducts = data.filter((product: Product) => product.category === "furniture");
-    console.log(FurnitureProducts, "FragranceProducts")
+    //console.log(FurnitureProducts, "FragranceProducts")
 
   return (
     <div>
