@@ -1,4 +1,3 @@
-
 import HeroSection from "./Components/home/hero/Hero";
 import IconCarousel from "./Components/IconCarousel";
 import { NewArrivals } from "./Components/home/ShopPreview/Previews";

@@ -9,7 +9,7 @@ const CategorySection = () => {
         <div className='mt-8 space-y-8'>
           {/* First Row */}
           <div className='flex flex-col gap-4 w-full md:flex-row'>
-            <div className='bg-white relative w-full md:w-[45%] h-[289px] flex flex-row-reverse rounded-lg shadow-md overflow-hidden group'>
+            <a href='/Beauty' className='bg-white relative w-full md:w-[45%] h-[289px] flex flex-row-reverse rounded-lg shadow-md overflow-hidden group'>
               <Image
                 src="/images/beauty.jpg"
                 alt="Beauty"
@@ -18,8 +18,8 @@ const CategorySection = () => {
                 className='w-[90%] md:w-full md:h-full object-cover  transform transition-transform duration-300 group-hover:scale-110'
               />
               <h2 className='text-xl md:relative  absolute top-0 left-2 font-semibold mt-2 p-2 z-40'>Beauty</h2>
-            </div>
-            <div className='bg-white relative w-full md:w-[55%] h-[289px] flex flex-row-reverse justify-center md:justify-between rounded-lg shadow-md overflow-hidden group'>
+            </a>
+            <a href='/Fragrances' className='bg-white relative w-full md:w-[55%] h-[289px] flex flex-row-reverse justify-center md:justify-between rounded-lg shadow-md overflow-hidden group'>
               <Image
                 src="/images/fragnance.png"
                 alt="Fragnance"
@@ -29,11 +29,11 @@ const CategorySection = () => {
                 className='w-full h-full  transform transition-transform duration-300 group-hover:scale-110'
               />
               <h2 className='text-xl  md:relative  absolute top-0 left-2 font-semibold mt-2 p-2 z-40 '>Fragrances</h2>
-            </div>
+            </a>
           </div>
           {/* Second Row */}
           <div className='flex flex-col gap-4 w-full md:flex-row'>
-            <div className='bg-white w-full md:w-[55%] h-[289px] flex flex-row-reverse rounded-lg shadow-md overflow-hidden group'>
+            <a href='/Furniture' className='bg-white w-full md:w-[55%] h-[289px] flex flex-row-reverse rounded-lg shadow-md overflow-hidden group'>
               <Image
                 src="/images/furniture.avif"
                 alt="Furniture"
@@ -42,8 +42,8 @@ const CategorySection = () => {
                 className='w-full h-full object-cover rounded-lg transform transition-transform duration-300 group-hover:scale-110'
               />
               <h2 className='text-xl font-semibold mt-2 p-2 z-40'>Furnitures</h2>
-            </div>
-            <div className='bg-white w-full md:w-[45%] h-[289px] flex flex-row-reverse rounded-lg shadow-md overflow-hidden group'>
+            </a>
+            <a href='/Groceries' className='bg-white w-full md:w-[45%] h-[289px] flex flex-row-reverse rounded-lg shadow-md overflow-hidden group'>
               <Image
                 src="/images/groceries.jpg"
                 alt="Groceries"
@@ -52,7 +52,7 @@ const CategorySection = () => {
                 className='w-full h-full object-cover rounded-lg transform transition-transform duration-300 group-hover:scale-110'
               />
               <h2 className='text-xl font-semibold mt-2 p-2 z-40'>Groceries</h2>
-            </div>
+            </a>
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 "use client";
 import Image from 'next/image';
 import React, { useState } from 'react';
+import Link from 'next/link';
 
 
 const NavBar = () => {
@@ -18,13 +19,15 @@ const NavBar = () => {
            alt="logo"
            className="w-6 md:hidden  h-auto"
           />
-          <Image
+         <Link href="/">
+         <Image
             width={130}
             height={120}
             src="/SVG/SHOP.CO.svg"
             alt="logo"
             className="w-36  h-auto"
           />
+         </Link>
         </div>
 
         {/* Nav Links */}
