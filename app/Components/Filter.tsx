@@ -4,15 +4,15 @@ import { useState } from 'react';
 
 type FilterProps = {
   options: string[];
-  onApplyFilters: (filters: { search: string; categories: string[] }) => void;
+  onApplyFilters: (filters: {  categories: string[] }) => void;
 };
 
 const Filter = ({ options, onApplyFilters }: FilterProps) => {
-  const [search, setSearch] = useState('');
+
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   const handleApply = () => {
-    onApplyFilters({ search, categories: selectedCategories });
+    onApplyFilters({  categories: selectedCategories });
   };
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -21,14 +21,10 @@ const Filter = ({ options, onApplyFilters }: FilterProps) => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row items-center gap-4 bg-gray-100 p-4 rounded-xl shadow-sm w-full max-w-4xl mx-auto">
-      <input
-        type="text"
-        placeholder="Search products..."
-        className="px-4 py-2 border rounded-md w-full md:w-1/3"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
+    <div className="flex flex-col  items-center gap-4 border border-gray-200 p-4 rounded-xl  w-full max-w-4xl mx-auto">
+      <div className="flex border-b border-gray-200 items-center justify-between w-full mb-4 pb-4">
+      <h1 className='text-xl font-semibold'>Filters</h1>
+      </div>
       <select
         multiple
         value={selectedCategories}
