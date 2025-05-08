@@ -1,23 +1,35 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 
 type FilterProps = {
   options: string[];
   onApplyFilters: (filters: {  categories: string[] }) => void;
 };
 
-const Filter = ({ options, onApplyFilters }: FilterProps) => {
+const Filter = ({ options,  onApplyFilters  }: FilterProps) => {
 
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  //const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
-  const handleApply = () => {
+  /* const handleApply = () => {
     onApplyFilters({  categories: selectedCategories });
-  };
+  }; */
 
-  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+ /*  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selected = Array.from(e.target.selectedOptions, option => option.value);
     setSelectedCategories(selected);
+  }; */
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategories((prev) =>
+      prev.includes(category)
+        ? prev.filter((cat) => cat !== category)
+        : [...prev, category]
+    );
+  };
+  const handleApply = () => { 
+    onApplyFilters({ categories: selectedCategories });
   };
 
   return (
@@ -25,18 +37,26 @@ const Filter = ({ options, onApplyFilters }: FilterProps) => {
       <div className="flex border-b border-gray-200 items-center justify-between w-full mb-4 pb-4">
       <h1 className='text-xl font-semibold'>Filters</h1>
       </div>
-      <select
-        multiple
-        value={selectedCategories}
-        onChange={handleCategoryChange}
-        className="px-4 py-2 border rounded-md w-full md:w-1/3 h-32"
+      <div
+       /*  multiple
+        value={selectedCategories}*/
+       
+        className="px-4 py-2  rounded-md w-full  h-auto"
       >
         {options.map((category, index) => (
-          <option key={index} value={category}>{category}</option>
+          <span onClick={()=>handleCategoryChange(category) } key={index} className={`hover:bg-gray-200 w-full ${selectedCategories.includes(category) ? 'bg-gray-200' : ''} flex rounded-lg justify-between p-2`} ><span>{category}</span>
+          <Image
+            src="/SVG/breadcrumbArrow.svg"
+            alt="Checkbox"
+            width={20}
+            height={20}
+            className="ml-2 cursor-pointer "
+          
+          /></span>
         ))}
-      </select>
+      </div>
       <button
-        className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+        className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
         onClick={handleApply}
       >
         Apply Filters
