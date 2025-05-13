@@ -1,7 +1,9 @@
 "use client";
-import { useState } from "react";
+import React, { useEffect } from "react";
+//import { useState } from "react";
 import Image from "next/image";
 import { Product } from "../types/Product";
+import { useCart } from "../Context/cartquantityContext";
 
 interface ProductCardsProps {
   products: Product[];
@@ -28,7 +30,57 @@ const getStarRating = (rating = 0) => {
 };
 
 const ProductCard: React.FC<ProductCardsProps> = ({ products }) => {
-  const [cartQuantities, setCartQuantities] = useState<{ [id: string]: number }>({});
+    const { addItem } = useCart();
+    const { items, setItems } = useCart();
+    const cartQuantities = items.reduce((acc: { [key: string]: number }, item) => {
+      acc[item.id] = item.quantity;
+      return acc;
+    }, {});
+
+
+  const handleAddToCart = (product: Product) => {
+    addItem({
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      images: product.images,
+      category: product.category,
+      shippingInformation: product.shippingInformation,
+      description: product.description,
+      discountPercentage: product.discountPercentage,
+      quantity: 1,
+      rating: product.rating,
+    });
+ 
+  }
+ useEffect(() => {
+    console.log("Cart items now:", items);
+  }, [items]);
+
+ const handleIncrement = (id: string) => {
+  setItems(prevItems =>
+    prevItems.map(item =>
+      item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+    )
+  );
+};
+
+const handleDecrement = (id: string) => {
+  setItems(prevItems => {
+    const itemToUpdate = prevItems.find(item => item.id === id);
+    if (!itemToUpdate) return prevItems;
+
+    if (itemToUpdate.quantity > 1) {
+      return prevItems.map(item =>
+        item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+      );
+    } else {
+      return prevItems.filter(item => item.id !== id);
+    }
+  });
+};
+
+  /* const [cartQuantities, setCartQuantities] = useState<{ [id: string]: number }>({});
 
   const handleAddToCart = (id: string) => {
     setCartQuantities((prev) => ({ ...prev, [id]: 1 }));
@@ -52,7 +104,7 @@ const ProductCard: React.FC<ProductCardsProps> = ({ products }) => {
       return { ...prev, [id]: currentQty - 1 };
     });
   };
-
+ */
   return (
     <>
       {products.map((product) => {
@@ -96,7 +148,7 @@ const ProductCard: React.FC<ProductCardsProps> = ({ products }) => {
               {quantity > 0 ? (
                 <div className="flex items-center space-x-2">
                   <button
-                    onClick={() => handleDecrement(product.id)}
+                     onClick={() => handleDecrement(product.id)} 
                     className="bg-black text-white px-3 py-1 rounded-full hover:bg-gray-800 transition duration-300"
                   >
                     −
@@ -111,7 +163,7 @@ const ProductCard: React.FC<ProductCardsProps> = ({ products }) => {
                 </div>
               ) : (
                 <button
-                  onClick={() => handleAddToCart(product.id)}
+                  onClick={() => handleAddToCart(product)}
                   className="bg-black text-white px-4 py-2 rounded-xl hover:bg-gray-800 text-nowrap transition duration-300"
                 >
                   Add to cart
