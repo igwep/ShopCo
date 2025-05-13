@@ -6,6 +6,7 @@ import useFetchProductsFromFireStore from '../hooks/FetchProductFIreStore';
 import ProductCard from '../Components/ProductCards';
 import Breadcrumb from '../Components/Breadcrumb';
 import Filter from '../Components/Filter';
+import Spinner from '../Components/Spinner';
 import { Product } from '../types/Product';
 
 const PRODUCTS_PER_PAGE = 6;
@@ -59,7 +60,7 @@ const Shop = () => {
     currentPage * PRODUCTS_PER_PAGE
   );
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div className='h-screen  flex justify-center items-center'><Spinner /></div>;
   if (error) return <div>Error: {error}</div>;
 
   return (

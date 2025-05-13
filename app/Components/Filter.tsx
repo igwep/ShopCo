@@ -48,9 +48,9 @@ const Filter = ({ options, onApplyFilters }: FilterProps) => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-4 border border-gray-200  rounded-xl w-full max-w-4xl mx-auto">
-      <div className="flex border-b border-gray-200 items-center justify-between w-full mb-4 pb-4">
-        <h1 className='text-xl font-semibold'>Filters</h1>
+    <div className="flex flex-col items-center gap-4 border border-gray-200  rounded-xl py-4 w-full max-w-4xl mx-auto">
+      <div className="flex p-3 border-b border-gray-200 items-center justify-between w-full ">
+        <h1 className='text-xl font-semibold '>Filters</h1>
       </div>
 
       <div className=" py-2 rounded-md w-full px-2  h-auto">
@@ -73,8 +73,7 @@ const Filter = ({ options, onApplyFilters }: FilterProps) => {
           </span>
         ))}
       </div>
-
-      <div className="w-full mt-6">
+      <div className="w-full  border-t border-gray-200 p-3 pt-4">
         <h2 className="text-lg font-medium mb-4">Price</h2>
         <Slider.Root
           className="relative flex items-center select-none touch-none h-5 w-full"

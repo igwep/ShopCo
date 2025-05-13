@@ -10,15 +10,14 @@ const HeroSection = () => {
           <h1 className="text-4xl md:text-6xl max-w-[35rem] font-montserrat font-black text-black mb-6">
           Lifestyle. Comfort. Convenience
           </h1>
-          <p className="text-lg text-gray-600 font-montserrat mb-6">
+          <p className="text-lg text-gray-600 font-montserrat mb-10">
           Embrace a lifestyle of comfort and convenience with every product, designed to enhance your daily living.
           </p>
-          <button className="bg-black text-white w-full md:w-auto font-semibold py-4 px-16 rounded-full transition duration-300 hover:opacity-90">
+          <a href="/Shop" className="bg-black  text-white w-full md:w-auto font-semibold py-4 px-16 rounded-full transition duration-300 hover:opacity-90">
             Shop Now
-          </button>
+          </a>
           <StatsCounter />
         </div>
-
         {/* Image Container */}
         <div className=" relative  w-full h-full md:h-auto order-2 md:order-none  3xl:-bottom-[40%] md:absolute bottom-[80%] md:-bottom-[50%] md:right-32 md:w-[50%]">
           <div className="relative w-full h-full md:h-[120%]">
@@ -30,7 +29,6 @@ const HeroSection = () => {
               className="md:object-contain object-none h-full w-full md:object-right"
               priority
             />
-
             {/* Stars */}
             <div className="absolute left-4 md:left-10 top-[30%] transform -translate-y-1/2">
               <Image

@@ -11,7 +11,7 @@ const StatsCounter = () => {
   }, []);
 
   return (
-    <div className="">
+    <div className="mt-5">
       <div className="grid grid-cols-2 md:grid-cols-3   gap-8 md:gap-4">
         {/* 1st Stat */}
         <div className="md:border-r md:border-[#c2bfc0] text-center  p-4  md:p-6">

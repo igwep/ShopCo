@@ -5,6 +5,7 @@ import useFetchProductsFromFireStore from '@/app/hooks/FetchProductFIreStore';
 import ProductCard from '../../ProductCards';
 import ViewAllBtn from '../../buttons/ViewAllBtn';
 import { Product } from '@/app/types/Product';
+import Spinner from '../../Spinner';
 //import { uploadFakeProducts } from '../../../hooks/GenerateData'// Assuming this is the correct path to your function
 ///import { useEffect } from 'react';
 
@@ -20,7 +21,7 @@ export const NewArrivals = () => {
 
      const { data, loading, error } = useFetchProductsFromFireStore(); 
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <div className='h-[50vh] justify-center flex items-center'><Spinner /></div>;
     if (error) return <div>Error: {error}</div>;
    // console.log(data);  
     const topThreeProducts = data.slice(0, 4);
@@ -40,7 +41,6 @@ export const NewArrivals = () => {
     <ProductCard products={topThreeProducts} />
   </div>
 </div>
-
         <ViewAllBtn />
         </div>
         <div className='border border-gray-200'>
