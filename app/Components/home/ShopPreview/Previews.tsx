@@ -41,7 +41,7 @@ export const NewArrivals = () => {
     <ProductCard products={topThreeProducts} />
   </div>
 </div>
-        <ViewAllBtn />
+        <ViewAllBtn to='/Shop' />
         </div>
         <div className='border border-gray-200'>
         </div>
@@ -52,7 +52,7 @@ export const NewArrivals = () => {
     <ProductCard products={topSellingProducts} />
   </div>
 </div>
-          <ViewAllBtn />
+          <ViewAllBtn to='/' />
         </div>
     </section>
  )
