@@ -2,14 +2,22 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useCart } from '@/app/Context/cartquantityContext';
 
-
+//remember to split the code into multiple files so that it is easier to read and maintain
 const NavBar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const { items } = useCart();
+
+  const cartQuantities = items.reduce((acc: { [key: string]: number }, item) => {
+    acc[item.id] = item.quantity;
+    return acc;
+  }, {});
+  const totalItems = Object.values(cartQuantities).reduce((acc, quantity) => acc + quantity, 0);
 
   return (
-    <nav className="flex justify-center py-4 bg-white shadow-md relative z-50">
-      <div className="flex items-center gap-10 w-full  justify-between px-4 md:px-34 3xl:px-64">
+    <nav className="flex justify-center fixed top-0 w-full  py-4 bg-white shadow-md  z-50">
+      <div className="flex items-center gap-10 w-full relative  justify-between px-4 md:px-34 3xl:px-64">
         {/* Logo */}
         <div className="flex flex-row items-center gap-2">
           <Image 
@@ -29,7 +37,6 @@ const NavBar = () => {
           />
          </Link>
         </div>
-
         {/* Nav Links */}
         <div className="relative hidden  md:flex gap-6  font-medium text-gray-700">
           {/* Shop with Dropdown */}
@@ -107,7 +114,7 @@ const NavBar = () => {
               className="w-6 h-auto"
             />
             <span className="absolute -top-2 -right-2 bg-black text-white text-xs px-1 rounded-full">
-              3
+              {totalItems}
             </span>
           </button>
           <button className="relative">

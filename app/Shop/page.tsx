@@ -64,7 +64,7 @@ const Shop = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="w-full h-auto pt-12 pb-28 md:px-34 3xl:px-64 px-4 space-y-8">
+    <div className="w-full h-auto pt-28 pb-28 md:px-34 3xl:px-64 px-4 space-y-8">
       <Breadcrumb />
 
       <div className="flex flex-col lg:flex-row gap-8">

@@ -26,7 +26,7 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
 }; */ // context/CartContext.tsx\
 
 "use client";
-import { createContext, useContext, useState, useMemo, ReactNode } from 'react';
+import { createContext, useEffect, useContext, useState, useMemo, ReactNode } from 'react';
 
 type CartItem = {
   id: string;
@@ -55,6 +55,17 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [items, setItems] = useState<CartItem[]>([]);
+   useEffect(() => {
+    const storedCart = localStorage.getItem("cartItems");
+    if (storedCart) {
+      setItems(JSON.parse(storedCart));
+    }
+  }, []);
+
+  //  Save to localStorage whenever items change
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(items));
+  }, [items]);
 
   const addItem = (item: CartItem) => {
   console.log("Adding item:", item);

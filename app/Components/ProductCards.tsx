@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+//import React, { useEffect } from "react";
 //import { useState } from "react";
 import Image from "next/image";
 import { Product } from "../types/Product";
@@ -51,11 +51,15 @@ const ProductCard: React.FC<ProductCardsProps> = ({ products }) => {
       quantity: 1,
       rating: product.rating,
     });
- 
+
   }
- useEffect(() => {
+
+/*   useEffect(() => {
+  localStorage.setItem("cartItems", JSON.stringify(items));
+}, [items]); */
+/*  useEffect(() => {
     console.log("Cart items now:", items);
-  }, [items]);
+  }, [items]); */
 
  const handleIncrement = (id: string) => {
   setItems(prevItems =>

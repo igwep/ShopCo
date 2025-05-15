@@ -35,7 +35,7 @@ if (loading) return <div className='h-screen  flex justify-center items-center'>
     currentPage * PRODUCTS_PER_PAGE
   );
   return (
-    <div className='w-full h-auto flex justify-center space-y-12 pt-12 pb-28 md:px-34 3xl:px-64 px-4 '>
+    <div className='w-full h-auto flex justify-center space-y-12 pt-28 pb-28 md:px-34 3xl:px-64 px-4 '>
      
        
         {/* Product Grid + Sorting + Pagination */}
