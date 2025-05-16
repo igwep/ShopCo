@@ -1,27 +1,28 @@
+
 "use client";
 import { useState } from 'react';
 import Image from 'next/image';
-import useFetchProductsFromFireStore from '../hooks/FetchProductFIreStore'
-import ProductCard from '../Components/ProductCards';
-import { Product } from '../types/Product';
-import Breadcrumb from '../Components/Breadcrumb';
-import Spinner from '../Components/Spinner';
+import useFetchProductsFromFireStore from '@/app/hooks/FetchProductFIreStore';
+import ProductCard from '@/app/Components/ProductCards';
+import { Product } from '@/app/types/Product';
+import Breadcrumb from '@/app/Components/Breadcrumb';
+import Spinner from '@/app/Components/Spinner';
 
 
 const PRODUCTS_PER_PAGE = 6;
 
-const GroceriesSection = () => {
+const FragranceSection = () => {
     const { data, loading, error } = useFetchProductsFromFireStore();
     const [sortBy, setSortBy] = useState(''); // State to manage sorting
      const [currentPage, setCurrentPage] = useState(1);
-if (loading) return <div className='h-screen  flex justify-center items-center'><Spinner /></div>;
+    
     if (error) return <div>Error: {error}</div>;
 
-    const groceryProducts = data.filter((product: Product) => product.category === "groceries");
+   const FragranceProducts = data.filter((product: Product) => product.category === "fragrances");
    // console.log(groceryProducts, "FragranceProducts")
  
 
-  const sortedProducts = [...groceryProducts].sort((a, b) => {
+  const sortedProducts = [...FragranceProducts].sort((a, b) => {
     if (sortBy === 'price-asc') return a.price - b.price;
     if (sortBy === 'price-desc') return b.price - a.price;
     if (sortBy === 'name-asc') return a.title.localeCompare(b.title);
@@ -29,11 +30,12 @@ if (loading) return <div className='h-screen  flex justify-center items-center'>
     return 0;
   });
 
-  const totalPages = Math.ceil(groceryProducts.length / PRODUCTS_PER_PAGE);
+  const totalPages = Math.ceil(FragranceProducts.length / PRODUCTS_PER_PAGE);
   const paginatedProducts = sortedProducts.slice(
     (currentPage - 1) * PRODUCTS_PER_PAGE,
     currentPage * PRODUCTS_PER_PAGE
   );
+  if (loading) return <div className='h-screen  flex justify-center items-center'><Spinner /></div>;
   return (
     <div className='w-full h-auto flex justify-center space-y-12 pt-28 pb-28 md:px-34 3xl:px-64 px-4 '>
      
@@ -136,4 +138,4 @@ if (loading) return <div className='h-screen  flex justify-center items-center'>
 }
 
 
-export default GroceriesSection
+export default FragranceSection;

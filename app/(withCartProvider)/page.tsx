@@ -1,8 +1,8 @@
-import HeroSection from "./Components/home/hero/Hero";
-import IconCarousel from "./Components/IconCarousel";
-import { NewArrivals } from "./Components/home/ShopPreview/Previews";
-import CategorySection from "./Components/home/CategorySection";
-import ReviewCarousel from "./Components/home/Reviews";
+import HeroSection from "../Components/home/hero/Hero";
+import IconCarousel from "../Components/IconCarousel";
+import { NewArrivals } from "../Components/home/ShopPreview/Previews";
+import CategorySection from "../Components/home/CategorySection";
+import ReviewCarousel from "../Components/home/Reviews";
 
 const icons = [
   { src: "/SVG/kelvin.svg", alt: "Calvin" },

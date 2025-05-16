@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import "./globals.css";
-import NavBar from "./Components/Navbar/NavBar";
+//import NavBar from "./Components/Navbar/NavBar";
 import { Footer } from "./Components/Footer";
-import { CartProvider } from "./Context/cartquantityContext";
+//import { CartProvider } from "./Context/cartquantityContext";
 import { Toaster } from "react-hot-toast";
 
 
@@ -37,11 +37,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${monsterrat} ${geistMono.variable} antialiased`}
       >
          <Toaster position="top-right" />
-      <CartProvider>
-          <NavBar />
+      {/* <CartProvider> */}
+         {/*  <NavBar /> */}
         {children}
         <Footer />
-      </CartProvider>
+      {/* </CartProvider> */}
       </body>
     </html>
   );

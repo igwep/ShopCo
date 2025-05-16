@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import useFetchProductsFromFireStore from '../hooks/FetchProductFIreStore'
-import ProductCard from '../Components/ProductCards';
-import { Product } from '../types/Product';
-import Breadcrumb from '../Components/Breadcrumb';
-import Spinner from '../Components/Spinner';
+import useFetchProductsFromFireStore from '@/app/hooks/FetchProductFIreStore';
+import ProductCard from '@/app/Components/ProductCards';
+import { Product } from '@/app/types/Product';
+import Breadcrumb from '@/app/Components/Breadcrumb';
+import Spinner from '@/app/Components/Spinner';
 
 
 const PRODUCTS_PER_PAGE = 6;
@@ -18,11 +18,11 @@ const FurnitureSection = () => {
     
     if (error) return <div>Error: {error}</div>;
 
-    const beautyProducts = data.filter((product: Product) => product.category === "beauty");
+    const FurnitureProducts = data.filter((product: Product) => product.category === "furniture");
    // console.log(groceryProducts, "FragranceProducts")
  
 
-  const sortedProducts = [...beautyProducts].sort((a, b) => {
+  const sortedProducts = [...FurnitureProducts].sort((a, b) => {
     if (sortBy === 'price-asc') return a.price - b.price;
     if (sortBy === 'price-desc') return b.price - a.price;
     if (sortBy === 'name-asc') return a.title.localeCompare(b.title);
@@ -30,7 +30,7 @@ const FurnitureSection = () => {
     return 0;
   });
 
-  const totalPages = Math.ceil(beautyProducts.length / PRODUCTS_PER_PAGE);
+  const totalPages = Math.ceil(FurnitureProducts.length / PRODUCTS_PER_PAGE);
   const paginatedProducts = sortedProducts.slice(
     (currentPage - 1) * PRODUCTS_PER_PAGE,
     currentPage * PRODUCTS_PER_PAGE
@@ -38,7 +38,6 @@ const FurnitureSection = () => {
   if (loading) return <div className='h-screen  flex justify-center items-center'><Spinner /></div>;
   return (
     <div className='w-full h-auto flex justify-center space-y-12 pt-28 pb-28 md:px-34 3xl:px-64 px-4 '>
-     
        
         {/* Product Grid + Sorting + Pagination */}
         <div className="w-full lg:w-3/4">
@@ -69,6 +68,7 @@ const FurnitureSection = () => {
               <ProductCard products={paginatedProducts} />
             )}
           </div>
+
           {/* Pagination */}
           {totalPages > 1 && (
             <div className="flex justify-between w-full mt-8 space-x-2">

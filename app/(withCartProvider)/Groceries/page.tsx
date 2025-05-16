@@ -1,52 +1,27 @@
-'use client';
-
-import React, { useState, useMemo } from 'react';
+"use client";
+import { useState } from 'react';
 import Image from 'next/image';
-import useFetchProductsFromFireStore from '../hooks/FetchProductFIreStore';
-import ProductCard from '../Components/ProductCards';
-import Breadcrumb from '../Components/Breadcrumb';
-import Filter from '../Components/Filter';
-import Spinner from '../Components/Spinner';
-import { Product } from '../types/Product';
+import useFetchProductsFromFireStore from '@/app/hooks/FetchProductFIreStore';
+import ProductCard from '@/app/Components/ProductCards';
+import { Product } from '@/app/types/Product';
+import Breadcrumb from '@/app/Components/Breadcrumb';
+import Spinner from '@/app/Components/Spinner';
+
 
 const PRODUCTS_PER_PAGE = 6;
 
-const Shop = () => {
-  const { data, loading, error } = useFetchProductsFromFireStore();
+const GroceriesSection = () => {
+    const { data, loading, error } = useFetchProductsFromFireStore();
+    const [sortBy, setSortBy] = useState(''); // State to manage sorting
+     const [currentPage, setCurrentPage] = useState(1);
+if (loading) return <div className='h-screen  flex justify-center items-center'><Spinner /></div>;
+    if (error) return <div>Error: {error}</div>;
 
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-  const [hasAppliedFilters, setHasAppliedFilters] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [sortBy, setSortBy] = useState(''); // State to manage sorting
+    const groceryProducts = data.filter((product: Product) => product.category === "groceries");
+   // console.log(groceryProducts, "FragranceProducts")
+ 
 
-  const allCategories = useMemo(
-    () => Array.from(new Set(data.map((product: Product) => product.category))),
-    [data]
-  );
-
-  const handleApplyFilters = ({
-    categories,
-    priceRange,
-  }: {
-    categories: string[];
-    priceRange: { min: number; max: number };
-  }) => {
-    const filtered = data.filter((product: Product) => {
-      const matchesCategory =
-        categories.length === 0 || categories.includes(product.category);
-      const matchesPrice =
-        product.price >= priceRange.min && product.price <= priceRange.max;
-      return matchesCategory && matchesPrice;
-    });
-
-    setFilteredProducts(filtered);
-    setHasAppliedFilters(true);
-    setCurrentPage(1); // Reset to page 1 when filters are applied
-  };
-
-  const productsToDisplay: Product[] = hasAppliedFilters ? filteredProducts : data;
-
-  const sortedProducts = [...productsToDisplay].sort((a, b) => {
+  const sortedProducts = [...groceryProducts].sort((a, b) => {
     if (sortBy === 'price-asc') return a.price - b.price;
     if (sortBy === 'price-desc') return b.price - a.price;
     if (sortBy === 'name-asc') return a.title.localeCompare(b.title);
@@ -54,30 +29,22 @@ const Shop = () => {
     return 0;
   });
 
-  const totalPages = Math.ceil(productsToDisplay.length / PRODUCTS_PER_PAGE);
+  const totalPages = Math.ceil(groceryProducts.length / PRODUCTS_PER_PAGE);
   const paginatedProducts = sortedProducts.slice(
     (currentPage - 1) * PRODUCTS_PER_PAGE,
     currentPage * PRODUCTS_PER_PAGE
   );
-
-  if (loading) return <div className='h-screen  flex justify-center items-center'><Spinner /></div>;
-  if (error) return <div>Error: {error}</div>;
-
   return (
-    <div className="w-full h-auto pt-28 pb-28 md:px-34 3xl:px-64 px-4 space-y-8">
-      <Breadcrumb />
-
-      <div className="flex flex-col lg:flex-row gap-8">
-        {/* Sidebar filter */}
-        <div className="w-full lg:w-1/4">
-          <Filter options={allCategories} onApplyFilters={handleApplyFilters} />
-        </div>
-
+    <div className='w-full h-auto flex justify-center space-y-12 pt-28 pb-28 md:px-34 3xl:px-64 px-4 '>
+     
+       
         {/* Product Grid + Sorting + Pagination */}
         <div className="w-full lg:w-3/4">
           {/* Sort Dropdown */}
-          <div className="flex w-full items-center justify-end mb-4">
-            <span>sort by</span>
+          <div className="flex w-full items-center justify-between ">
+             <Breadcrumb />
+
+           <div> <span>sort by</span>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
@@ -87,7 +54,7 @@ const Shop = () => {
               <option value="price-desc">Price: High to Low</option>
               <option value="name-asc">Name: A-Z</option>
               <option value="name-desc">Name: Z-A</option>
-            </select>
+            </select></div>
           </div>
 
           {/* Product Cards */}
@@ -163,9 +130,10 @@ const Shop = () => {
             </div>
           )}
         </div>
-      </div>
-    </div>
-  );
-};
 
-export default Shop;
+    </div>
+  )
+}
+
+
+export default GroceriesSection

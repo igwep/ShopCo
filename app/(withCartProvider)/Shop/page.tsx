@@ -1,28 +1,52 @@
+'use client';
 
-"use client";
-import { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
-import useFetchProductsFromFireStore from '../hooks/FetchProductFIreStore'
-import ProductCard from '../Components/ProductCards';
-import { Product } from '../types/Product';
-import Breadcrumb from '../Components/Breadcrumb';
-import Spinner from '../Components/Spinner';
-
+import useFetchProductsFromFireStore from '@/app/hooks/FetchProductFIreStore';
+import ProductCard from '@/app/Components/ProductCards';
+import { Product } from '@/app/types/Product';
+import Breadcrumb from '@/app/Components/Breadcrumb';
+import Spinner from '@/app/Components/Spinner';
+import Filter from '@/app/Components/Filter';
 
 const PRODUCTS_PER_PAGE = 6;
 
-const FragranceSection = () => {
-    const { data, loading, error } = useFetchProductsFromFireStore();
-    const [sortBy, setSortBy] = useState(''); // State to manage sorting
-     const [currentPage, setCurrentPage] = useState(1);
-    
-    if (error) return <div>Error: {error}</div>;
+const Shop = () => {
+  const { data, loading, error } = useFetchProductsFromFireStore();
 
-   const FragranceProducts = data.filter((product: Product) => product.category === "fragrances");
-   // console.log(groceryProducts, "FragranceProducts")
- 
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [hasAppliedFilters, setHasAppliedFilters] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [sortBy, setSortBy] = useState(''); // State to manage sorting
 
-  const sortedProducts = [...FragranceProducts].sort((a, b) => {
+  const allCategories = useMemo(
+    () => Array.from(new Set(data.map((product: Product) => product.category))),
+    [data]
+  );
+
+  const handleApplyFilters = ({
+    categories,
+    priceRange,
+  }: {
+    categories: string[];
+    priceRange: { min: number; max: number };
+  }) => {
+    const filtered = data.filter((product: Product) => {
+      const matchesCategory =
+        categories.length === 0 || categories.includes(product.category);
+      const matchesPrice =
+        product.price >= priceRange.min && product.price <= priceRange.max;
+      return matchesCategory && matchesPrice;
+    });
+
+    setFilteredProducts(filtered);
+    setHasAppliedFilters(true);
+    setCurrentPage(1); // Reset to page 1 when filters are applied
+  };
+
+  const productsToDisplay: Product[] = hasAppliedFilters ? filteredProducts : data;
+
+  const sortedProducts = [...productsToDisplay].sort((a, b) => {
     if (sortBy === 'price-asc') return a.price - b.price;
     if (sortBy === 'price-desc') return b.price - a.price;
     if (sortBy === 'name-asc') return a.title.localeCompare(b.title);
@@ -30,23 +54,30 @@ const FragranceSection = () => {
     return 0;
   });
 
-  const totalPages = Math.ceil(FragranceProducts.length / PRODUCTS_PER_PAGE);
+  const totalPages = Math.ceil(productsToDisplay.length / PRODUCTS_PER_PAGE);
   const paginatedProducts = sortedProducts.slice(
     (currentPage - 1) * PRODUCTS_PER_PAGE,
     currentPage * PRODUCTS_PER_PAGE
   );
+
   if (loading) return <div className='h-screen  flex justify-center items-center'><Spinner /></div>;
+  if (error) return <div>Error: {error}</div>;
+
   return (
-    <div className='w-full h-auto flex justify-center space-y-12 pt-28 pb-28 md:px-34 3xl:px-64 px-4 '>
-     
-       
+    <div className="w-full h-auto pt-28 pb-28 md:px-34 3xl:px-64 px-4 space-y-8">
+      <Breadcrumb />
+
+      <div className="flex flex-col lg:flex-row gap-8">
+        {/* Sidebar filter */}
+        <div className="w-full lg:w-1/4">
+          <Filter options={allCategories} onApplyFilters={handleApplyFilters} />
+        </div>
+
         {/* Product Grid + Sorting + Pagination */}
         <div className="w-full lg:w-3/4">
           {/* Sort Dropdown */}
-          <div className="flex w-full items-center justify-between ">
-             <Breadcrumb />
-
-           <div> <span>sort by</span>
+          <div className="flex w-full items-center justify-end mb-4">
+            <span>sort by</span>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
@@ -56,7 +87,7 @@ const FragranceSection = () => {
               <option value="price-desc">Price: High to Low</option>
               <option value="name-asc">Name: A-Z</option>
               <option value="name-desc">Name: Z-A</option>
-            </select></div>
+            </select>
           </div>
 
           {/* Product Cards */}
@@ -132,10 +163,9 @@ const FragranceSection = () => {
             </div>
           )}
         </div>
-
+      </div>
     </div>
-  )
-}
+  );
+};
 
-
-export default FragranceSection;
+export default Shop;
