@@ -27,6 +27,7 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
 
 "use client";
 import { createContext, useEffect, useContext, useState, useMemo, ReactNode } from 'react';
+import { toast } from 'react-hot-toast';
 
 type CartItem = {
   id: string;
@@ -84,6 +85,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       return [...prev, item];
     }
   });
+  toast.success(`${item.title} added to cart`)
+  
 };
 
 

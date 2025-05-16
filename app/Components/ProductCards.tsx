@@ -4,12 +4,14 @@
 import Image from "next/image";
 import { Product } from "../types/Product";
 import { useCart } from "../Context/cartquantityContext";
+import { formatPrices, getStarRating  } from "../utils/Format"
 
 interface ProductCardsProps {
   products: Product[];
+  styled?:boolean
 }
 
-const formatPrices = (price: number, discountPercentage?: number) => {
+/* const formatPrices = (price: number, discountPercentage?: number) => {
   const discount = discountPercentage || 0;
   const discountedPrice = discount > 0
     ? +(price - (price * discount) / 100).toFixed(2)
@@ -27,9 +29,9 @@ const getStarRating = (rating = 0) => {
   const fullStars = Math.floor(rating);
   const hasHalfStar = rating % 1 >= 0.5;
   return { fullStars, hasHalfStar };
-};
+}; */
 
-const ProductCard: React.FC<ProductCardsProps> = ({ products }) => {
+const ProductCard: React.FC<ProductCardsProps> = ({ products, styled }) => {
     const { addItem } = useCart();
     const { items, setItems } = useCart();
     const cartQuantities = items.reduce((acc: { [key: string]: number }, item) => {
@@ -119,7 +121,7 @@ const handleDecrement = (id: string) => {
         return (
           <div
             key={product.id}
-            className="min-w-[300px] max-w-[300px] rounded-xl text-center flex-shrink-0"
+            className={`${styled ? 'md:min-w-[300px] min-w-[194px] max-w-[194px] md:max-w-[300px]': 'max-w-[300px] min-w-[300px]'} rounded-xl text-center flex-shrink-0`}
           >
             <div className="relative w-full h-[200px] md:h-[298px] bg-[#F0EEED] mb-3 rounded-xl">
               <Image
@@ -153,14 +155,14 @@ const handleDecrement = (id: string) => {
                 <div className="flex items-center space-x-2">
                   <button
                      onClick={() => handleDecrement(product.id)} 
-                    className="bg-black text-white px-3 py-1 rounded-full hover:bg-gray-800 transition duration-300"
+                    className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800 transition duration-300"
                   >
                     −
                   </button>
                   <span className="px-2 text-sm font-medium">{quantity}</span>
                   <button
                     onClick={() => handleIncrement(product.id)}
-                    className="bg-black text-white px-3 py-1 rounded-full hover:bg-gray-800 transition duration-300"
+                    className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800 transition duration-300"
                   >
                     +
                   </button>

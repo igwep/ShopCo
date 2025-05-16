@@ -24,7 +24,7 @@ export const NewArrivals = () => {
     if (loading) return <div className='h-[50vh] justify-center flex items-center'><Spinner /></div>;
     if (error) return <div>Error: {error}</div>;
    // console.log(data);  
-    const topThreeProducts = data.slice(0, 4);
+    const topFourProducts = data.slice(0, 4);
     const topSellingProducts = data
   .filter((product): product is Product & { rating: number } => typeof product.rating === 'number')
   .sort((a, b) => b.rating - a.rating)
@@ -37,8 +37,8 @@ export const NewArrivals = () => {
         </h1>
         <div className='flex flex-col space-y-6 justify-center   items-center w-full '>
         <div className="overflow-x-auto scrollbar-none w-full">
-  <div className="flex gap-4 flex-nowrap justify-center px-4">
-    <ProductCard products={topThreeProducts} />
+  <div className="flex gap-4 flex-nowrap justify-center w-max px-4">
+    <ProductCard products={topFourProducts} />
   </div>
 </div>
         <ViewAllBtn to='/Shop' />
@@ -48,7 +48,7 @@ export const NewArrivals = () => {
         <div className='flex flex-col space-y-6 justify-center items-center w-full '>
           <h2 className='md:text-5xl text-3xl text-center w-full font-black mt-12'>Top Selling</h2>
           <div className="overflow-x-auto scrollbar-none w-full">
-  <div className="flex gap-4 flex-nowrap justify-center px-4">
+  <div className="flex gap-4 flex-nowrap justify-center w-max px-4">
     <ProductCard products={topSellingProducts} />
   </div>
 </div>

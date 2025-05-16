@@ -64,12 +64,12 @@ const Shop = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="w-full h-auto pt-28 pb-28 md:px-34 3xl:px-64 px-4 space-y-8">
-      <Breadcrumb />
-
+    <div className="w-full h-auto md:pt-28 pt-20 pb-28 md:px-34 3xl:px-64 px-4 md:space-y-8">
+      
+<Breadcrumb />
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Sidebar filter */}
-        <div className="w-full lg:w-1/4">
+        <div className="w-full lg:w-1/4 md:flex hidden">
           <Filter options={allCategories} onApplyFilters={handleApplyFilters} />
         </div>
 
@@ -89,15 +89,16 @@ const Shop = () => {
               <option value="name-desc">Name: Z-A</option>
             </select>
           </div>
+          
 
           {/* Product Cards */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-1 md:gap-4 place-items-center  w-full ">
             {paginatedProducts.length === 0 ? (
               <div className="text-center text-xl font-semibold col-span-full">
                 No Products Found
               </div>
             ) : (
-              <ProductCard products={paginatedProducts} />
+              <ProductCard products={paginatedProducts} styled={true} />
             )}
           </div>
 

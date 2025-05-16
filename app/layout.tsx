@@ -4,7 +4,7 @@ import "./globals.css";
 //import NavBar from "./Components/Navbar/NavBar";
 import { Footer } from "./Components/Footer";
 //import { CartProvider } from "./Context/cartquantityContext";
-import { Toaster } from "react-hot-toast";
+
 
 
 const geistSans = Geist({
@@ -36,7 +36,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${monsterrat} ${geistMono.variable} antialiased`}
       >
-         <Toaster position="top-right" />
+      
       {/* <CartProvider> */}
          {/*  <NavBar /> */}
         {children}

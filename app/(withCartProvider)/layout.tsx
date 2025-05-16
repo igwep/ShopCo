@@ -1,11 +1,12 @@
-// app/(with-cart)/layout.tsx
-"use client"; // required because it wraps a Client Provider
+
+
 
 import { CartProvider } from "../Context/cartquantityContext";
 import NavBar from "../Components/Navbar/NavBar";
-
+import { Toaster } from "react-hot-toast";
 export default function WithCartLayout({ children }: { children: React.ReactNode }) {
   return <CartProvider>
+       <Toaster position="top-right" />
     <NavBar />  {children}
     </CartProvider>;
 }
