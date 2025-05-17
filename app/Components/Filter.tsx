@@ -10,12 +10,14 @@ type FilterProps = {
     categories: string[];
     priceRange: { min: number; max: number };
   }) => void;
+  isFilterOpen?: boolean; // new optional prop
+  setIsFilterOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const MIN = 0;
 const MAX = 4000;
 
-const Filter = ({ options, onApplyFilters }: FilterProps) => {
+const Filter = ({ options, onApplyFilters, isFilterOpen, setIsFilterOpen }: FilterProps) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<{ min: number; max: number }>({ 
     min: MIN, 
@@ -38,6 +40,9 @@ const Filter = ({ options, onApplyFilters }: FilterProps) => {
         max: priceRange.max
       },
     });
+     if (setIsFilterOpen) {
+    setIsFilterOpen(false);
+  }
   };
 
   const handleSliderChange = (values: number[]) => {
@@ -47,13 +52,24 @@ const Filter = ({ options, onApplyFilters }: FilterProps) => {
     });
   };
 
-  return (
-    <div className="flex flex-col items-center gap-4 border border-gray-200  rounded-xl py-4 w-full max-w-4xl mx-auto">
+  const handleCloseFilter = () => {
+     if (setIsFilterOpen) {
+    setIsFilterOpen(false);
+  }
+  }
+  // shared section content
+  const renderFilterContent = () => (
+    <>
       <div className="flex p-3 border-b border-gray-200 items-center justify-between w-full ">
         <h1 className='text-xl font-semibold '>Filters</h1>
+       <div
+       onClick={handleCloseFilter}
+       className={`${isFilterOpen ? 'flex' : 'hidden'} cursor-pointer`}>
+        <Image src='/SVG/x.svg' alt="x" width={15} height={20} />
+       </div>
       </div>
 
-      <div className=" py-2 rounded-md w-full px-2  h-auto">
+      <div className="py-2 rounded-md w-full px-2 h-auto">
         {options.map((category, index) => (
           <span 
             key={index} 
@@ -73,7 +89,8 @@ const Filter = ({ options, onApplyFilters }: FilterProps) => {
           </span>
         ))}
       </div>
-      <div className="w-full  border-t border-gray-200 p-3 pt-4">
+
+      <div className="w-full border-t border-gray-200 p-3 pt-4">
         <h2 className="text-lg font-medium mb-4">Price</h2>
         <Slider.Root
           className="relative flex items-center select-none touch-none h-5 w-full"
@@ -103,12 +120,33 @@ const Filter = ({ options, onApplyFilters }: FilterProps) => {
       </div>
 
       <button
-        className="bg-black text-white px-20 py-2 rounded-full hover:bg-gray-800 transition duration-200"
+        className="bg-black text-white md:w-auto w-full px-20 py-2 rounded-full hover:bg-gray-800 transition duration-200"
         onClick={handleApply}
       >
         Apply Filters
       </button>
+    </>
+  );
+
+  return (
+    <>
+      {/* Default (e.g. Desktop) */}
+      <div className="flex-col md:flex hidden items-center gap-4 border border-gray-200 rounded-xl py-4 w-full max-w-4xl mx-auto">
+        {renderFilterContent()}
+      </div>
+
+      {/* Conditionally rendered (e.g. Mobile or Toggle Drawer) */}
+{isFilterOpen && (
+  <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 md:hidden">
+    <div className="bg-white w-full h-[80%] rounded-t-xl overflow-y-auto shadow-lg p-4">
+      {renderFilterContent()}
     </div>
+  </div>
+)}
+
+
+
+    </>
   );
 };
 

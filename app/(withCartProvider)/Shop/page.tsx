@@ -16,6 +16,7 @@ const Shop = () => {
 
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [hasAppliedFilters, setHasAppliedFilters] = useState(false);
+  const [isFilterOpen, setisFilterOpen] = useState(false)
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState(''); // State to manage sorting
 
@@ -69,15 +70,24 @@ const Shop = () => {
 <Breadcrumb />
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Sidebar filter */}
-        <div className="w-full lg:w-1/4 md:flex hidden">
-          <Filter options={allCategories} onApplyFilters={handleApplyFilters} />
+        <div className="w-full lg:w-1/4 ">
+          <Filter options={allCategories} onApplyFilters={handleApplyFilters}  isFilterOpen={isFilterOpen} setIsFilterOpen={setisFilterOpen} />
         </div>
 
         {/* Product Grid + Sorting + Pagination */}
         <div className="w-full lg:w-3/4">
           {/* Sort Dropdown */}
-          <div className="flex w-full items-center justify-end mb-4">
-            <span>sort by</span>
+          <div className="flex w-full items-center justify-between md:justify-end mb-2 px-2">
+            <div  onClick={()=>setisFilterOpen(true)} 
+              className='cursor-pointer md:hidden flex'
+              >
+              <Image src="/SVG/filterIcon.svg" alt="filter" 
+            width={30}
+            height={25}            
+            />
+            </div>
+           <div>
+             <span>sort by</span>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
@@ -88,6 +98,8 @@ const Shop = () => {
               <option value="name-asc">Name: A-Z</option>
               <option value="name-desc">Name: Z-A</option>
             </select>
+           </div>
+           
           </div>
           
 
@@ -127,20 +139,56 @@ const Shop = () => {
 
               {/* Page Numbers */}
               <div className="flex gap-2">
-                {Array.from({ length: totalPages }, (_, index) => (
-                  <button
-                    key={index + 1}
-                    onClick={() => setCurrentPage(index + 1)}
-                    className={`px-4 py-2 rounded ${
-                      currentPage === index + 1
-                        ? 'bg-black text-white'
-                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                    }`}
-                  >
-                    {index + 1}
-                  </button>
-                ))}
-              </div>
+  {totalPages <= 3 ? (
+    // Show all pages if totalPages is 3 or less
+    Array.from({ length: totalPages }, (_, index) => (
+      <button
+        key={index + 1}
+        onClick={() => setCurrentPage(index + 1)}
+        className={`px-4 py-2 rounded ${
+          currentPage === index + 1
+            ? 'bg-black text-white'
+            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+        }`}
+      >
+        {index + 1}
+      </button>
+    ))
+  ) : (
+    <>
+      {/* Show first three pages */}
+      {[1, 2].map((page) => (
+        <button
+          key={page}
+          onClick={() => setCurrentPage(page)}
+          className={`px-4 py-2 rounded ${
+            currentPage === page
+              ? 'bg-black text-white'
+              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+          }`}
+        >
+          {page}
+        </button>
+      ))}
+
+      {/* Ellipsis */}
+      <span className="px-2 py-2">...</span>
+
+      {/* Last page button */}
+      <button
+        onClick={() => setCurrentPage(totalPages)}
+        className={`px-4 py-2 rounded ${
+          currentPage === totalPages
+            ? 'bg-black text-white'
+            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+        }`}
+      >
+        {totalPages}
+      </button>
+    </>
+  )}
+</div>
+
 
               {/* Next Button */}
               <button

@@ -43,7 +43,7 @@ const CategorySection = () => {
               />
               <h2 className='text-xl font-semibold mt-2 p-2 z-40'>Furnitures</h2>
             </a>
-            <a href='/Groceries' className='bg-white w-full md:w-[45%] h-[289px] flex flex-row-reverse rounded-lg shadow-md overflow-hidden group'>
+            <a href='/Groceries' className='bg-white relative w-full md:w-[45%] h-[289px] flex flex-row-reverse rounded-lg shadow-md overflow-hidden group'>
               <Image
                 src="/images/groceries.jpg"
                 alt="Groceries"
@@ -51,7 +51,7 @@ const CategorySection = () => {
                 height={150}
                 className='w-full h-full object-cover rounded-lg transform transition-transform duration-300 group-hover:scale-110'
               />
-              <h2 className='text-xl font-semibold mt-2 p-2 z-40'>Groceries</h2>
+              <h2 className='text-xl font-semibold  md:relative  absolute top-0 left-1 mt-2 p-2 z-40'>Groceries</h2>
             </a>
           </div>
         </div>

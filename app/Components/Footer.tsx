@@ -47,11 +47,11 @@ export const Footer = () => {
             We have clothes that suit your style and which you&apos;re proud to wear. From women to men.
           </p>
           <div className="flex space-x-3 text-gray-600">
-            {/* Uncomment and add your social icons here if needed */}
-            {/* <FaTwitter className="hover:text-black cursor-pointer" />
-            <FaFacebookF className="hover:text-black cursor-pointer" />
-            <FaInstagram className="hover:text-black cursor-pointer" />
-            <FaGithub className="hover:text-black cursor-pointer" /> */}
+            <Image src="/SVG/twitter.svg" width={25} height={25} alt="twiter"/>
+            <Image src="/SVG/facebook.svg" width={25} height={25} alt="facebook"/>
+            <Image src="/SVG/instagram.svg" width={25} height={25} alt="instagram"/>
+            <Image src="/SVG/github.svg" width={25} height={25} alt="github"/>
+            
           </div>
         </div>
 
