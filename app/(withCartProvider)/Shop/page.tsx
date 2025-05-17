@@ -86,7 +86,7 @@ const Shop = () => {
             height={25}            
             />
             </div>
-           <div>
+           <div className='text-xs'>
              <span>sort by</span>
             <select
               value={sortBy}

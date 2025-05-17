@@ -89,7 +89,6 @@ const Filter = ({ options, onApplyFilters, isFilterOpen, setIsFilterOpen }: Filt
           </span>
         ))}
       </div>
-
       <div className="w-full border-t border-gray-200 p-3 pt-4">
         <h2 className="text-lg font-medium mb-4">Price</h2>
         <Slider.Root
@@ -118,7 +117,6 @@ const Filter = ({ options, onApplyFilters, isFilterOpen, setIsFilterOpen }: Filt
           <span>${priceRange.max}</span>
         </div>
       </div>
-
       <button
         className="bg-black text-white md:w-auto w-full px-20 py-2 rounded-full hover:bg-gray-800 transition duration-200"
         onClick={handleApply}
@@ -127,15 +125,14 @@ const Filter = ({ options, onApplyFilters, isFilterOpen, setIsFilterOpen }: Filt
       </button>
     </>
   );
-
   return (
     <>
-      {/* Default (e.g. Desktop) */}
+      {/* Default: Desktop */}
       <div className="flex-col md:flex hidden items-center gap-4 border border-gray-200 rounded-xl py-4 w-full max-w-4xl mx-auto">
         {renderFilterContent()}
       </div>
 
-      {/* Conditionally rendered (e.g. Mobile or Toggle Drawer) */}
+      {/* Conditionally rendered  */}
 {isFilterOpen && (
   <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 md:hidden">
     <div className="bg-white w-full h-[80%] rounded-t-xl overflow-y-auto shadow-lg p-4">
