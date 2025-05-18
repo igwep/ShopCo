@@ -5,8 +5,6 @@ import Spinner from '@/app/Components/Spinner';
 import { useFurnitureProducts } from '@/app/hooks/CategoryHook';
 import ShopSection from '@/app/Components/shopSectionPage';
 
-
-
 const FurnitureSection = () => {
     const {  loading, error } = useFetchProductsFromFireStore();
     const furnitureProducts = useFurnitureProducts()

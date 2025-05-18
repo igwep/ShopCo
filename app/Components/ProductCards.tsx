@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Product } from "../types/Product";
 import { useCart } from "../Context/cartquantityContext";
 import { formatPrices, getStarRating  } from "../utils/Format"
+import Link from "next/link";
 
 interface ProductCardsProps {
   products: Product[];
@@ -66,9 +67,10 @@ const handleDecrement = (id: string) => {
         const { discountedPrice, originalPrice, discount, isDiscounted } = formatPrices(product.price, product.discountPercentage);
         const { fullStars, hasHalfStar } = getStarRating(product.rating);
         const quantity = cartQuantities[product.id] || 0;
+        const slug = product.title.toLowerCase().replace(/\s+/g, '-');
 
         return (
-          <div
+          <Link href={`/Shop/${product.category}/${slug}`}
   key={product.id}
   className={`${
     styled
@@ -133,7 +135,7 @@ const handleDecrement = (id: string) => {
       </button>
     )}
   </div>
-</div>
+</Link>
 
         );
       })}
