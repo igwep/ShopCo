@@ -29,7 +29,7 @@ const ProductSection = () => {
 
   return (
     <div>
-       <div className="max-w-7xl mx-auto px-4 py-10 flex flex-col md:flex-row gap-10">
+       <div className="max-w-7xl my-20 mx-auto px-4 py-10 flex flex-col md:flex-row gap-10">
       {/* Image Gallery */}
       <div className="md:w-1/2 space-y-4 flex flex-row-reverse gap-2">
         <div className="w-full aspect-square bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
