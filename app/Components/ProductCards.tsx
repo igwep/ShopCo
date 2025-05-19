@@ -113,14 +113,14 @@ const handleDecrement = (id: string) => {
     {quantity > 0 ? (
       <div className="flex items-center space-x-2">
         <button
-          onClick={() => handleDecrement(product.id)}
+          onClick={(e) => {   e.preventDefault();  handleDecrement(product.id)}}
           className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800 transition duration-300"
         >
           −
         </button>
         <span className="px-2 text-sm font-medium">{quantity}</span>
         <button
-          onClick={() => handleIncrement(product.id)}
+          onClick={(e) => {  e.preventDefault();  handleIncrement(product.id)}}
           className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800 transition duration-300"
         >
           +
@@ -128,7 +128,7 @@ const handleDecrement = (id: string) => {
       </div>
     ) : (
       <button
-        onClick={() => handleAddToCart(product)}
+        onClick={(e) =>{  e.preventDefault();  handleAddToCart(product)}}
         className="bg-black text-white px-4 py-2 rounded-xl hover:bg-gray-800 text-nowrap transition duration-300"
       >
         Add to cart

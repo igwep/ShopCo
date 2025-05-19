@@ -1,0 +1,70 @@
+PHASE 1: Structure & UI Foundation
+
+Step 1: Page Setup
+	•	Create /shop page to show all products.... [checked]
+	•	Create 4 category pages:.... [checked]
+	•	/shop/clothing.... [checked]
+	•	/shop/accessories.... [checked]
+	•	/shop/shoes.... [checked]
+	•	/shop/tech (or your actual categories).... [checked]
+
+Step 2: Product Page UI
+	•	Design the layout for the product detail page.... [checked]
+	•	Create a dynamic route: /shop/[id].js or /product/[slug].... [checked]
+	•	Add placeholders (title, image, price, description, “Add to Cart” button)....in progress
+
+⸻
+
+PHASE 2: Cart Functionality
+
+Step 3: Cart Page
+	•	Create a /cart page
+	•	Display cart items from the cart context
+	•	Show total price
+	•	Add remove item functionality
+
+Step 4: Add to Cart Logic
+	•	Add “Add to Cart” buttons on product cards
+	•	Connect them to your cart context
+	•	Test that items appear in the cart page
+
+⸻
+
+PHASE 3: Database Setup
+
+Step 5: Set Up Firebase (or Supabase)
+	•	Create a Firestore database
+	•	Add a products collection
+	•	Add sample product documents (title, image, price, category, etc.)
+
+Step 6: Fetch Product Data
+	•	Use getServerSideProps or getStaticProps to fetch products
+	•	Display real products on the /shop and category pages
+	•	Fetch individual product details by ID or slug
+
+⸻
+
+PHASE 4: Authentication
+
+Step 7: Set Up Auth
+	•	Add Firebase Auth to your project
+	•	Create login page
+	•	Create register/signup page
+	•	Store authenticated user state (Context or Firebase hooks)
+
+Step 8: Protect Pages
+	•	Redirect unauthenticated users from /cart and /checkout
+	•	Show “Login to continue” if not signed in
+
+⸻
+
+PHASE 5: Final Flow & Polish
+
+Step 9: Checkout Flow
+	•	Add a “Proceed to Checkout” button
+	•	Link to a WhatsApp/Instagram DM with cart summary (if no payment integration)
+
+Step 10: Polish & Responsive Design
+	•	Make all pages mobile-friendly
+	•	Add loading states and error handling
+	•	Animate page transitions or buttons (optional)
