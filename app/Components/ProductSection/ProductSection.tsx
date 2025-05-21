@@ -3,6 +3,7 @@
 import { useState } from 'react'; 
 import { useParams } from 'next/navigation'; 
 import { useProduct } from '@/app/hooks/Product';
+import { useCart } from '@/app/Context/cartquantityContext';
 import Image from 'next/image';
 import Spinner from '@/app/Components/Spinner';
 
@@ -14,6 +15,7 @@ type Review = {
 };
 
 type Product = {
+  id: string;
   images: string[];
   title: string;
   price: number;
@@ -34,6 +36,13 @@ const ProductSection = () => {
     loading: boolean;
     error: string | null;
   };
+ //  const { addItem } = useCart();
+    const { items, /* setItems */ } = useCart();
+    const cartQuantities = items.reduce((acc: { [key: string]: number }, item) => {
+      acc[item.id] = item.quantity;
+      return acc;
+    }, {});
+      const quantity = product ? cartQuantities[product.id] || 0 : 0;
 
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [selectedSize, setSelectedSize] = useState("Medium");
@@ -118,9 +127,30 @@ const ProductSection = () => {
           </div>
 
           {/* Add to Cart */}
-          <button className="bg-black text-white w-full py-4 rounded-full font-semibold hover:opacity-90 transition">
+          {quantity > 0 ? (
+      <div className="flex items-center space-x-2">
+        <button
+          /* onClick={(e) => {   e.preventDefault();  handleDecrement(product.id)}} */
+          className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800 transition duration-300"
+        >
+          −
+        </button>
+        <span className="px-2 text-sm font-medium">{quantity}</span>
+        <button
+          /* onClick={(e) => {  e.preventDefault();  handleIncrement(product.id)}} */
+          className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800 transition duration-300"
+        >
+          +
+        </button>
+      </div>
+    ) : (
+     <button className="bg-black text-white w-full py-4 rounded-full font-semibold hover:opacity-90 transition">
             Add to Cart
           </button>
+    )}
+          {/* <button className="bg-black text-white w-full py-4 rounded-full font-semibold hover:opacity-90 transition">
+            Add to Cart
+          </button> */}
         </div>
       </div>
 
