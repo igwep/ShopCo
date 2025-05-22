@@ -5,7 +5,7 @@ const CategorySection = () => {
   return (
     <div className='min-h-screen md:px-34 3xl:px-64 px-4 py-8'>
       <div className='bg-[#F0F0F0] md:px-8 px-4 py-8 rounded-4xl'>
-        <h1 className='md:text-5xl text-3xl text-center w-full font-black '>Shop by Category</h1>
+        <h1 className='md:text-5xl text-3xl text-center w-full font-black uppercase '>Shop by Category</h1>
         <div className='mt-8 space-y-8'>
           {/* First Row */}
           <div className='flex flex-col gap-4 w-full md:flex-row'>

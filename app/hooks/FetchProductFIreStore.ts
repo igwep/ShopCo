@@ -36,3 +36,31 @@ import { Product } from "../types/Product";
 
   }
   export default useFetchProductsFromFireStore;
+
+/*  "use client";
+import { useQuery } from "@tanstack/react-query";
+import { db } from "../Firebase";
+import { collection, getDocs } from "firebase/firestore";
+import { Product } from "../types/Product";
+
+// Async function to fetch products
+const fetchProducts = async (): Promise<Product[]> => {
+  const querySnapshot = await getDocs(collection(db, "Products"));
+  const products: Product[] = querySnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  })) as Product[];
+
+  return products;
+};
+
+const useFetchProductsFromFireStore = () => {
+  return useQuery<Product[]>({
+    queryKey: ["products"],
+    queryFn: fetchProducts,
+    staleTime: 1000 * 60 * 10, // 10 minutes 
+   // cacheTime: 1000 * 60 * 60, // 1 hour
+  });
+};
+
+export default useFetchProductsFromFireStore; */

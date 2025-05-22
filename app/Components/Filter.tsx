@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import * as Slider from '@radix-ui/react-slider';
 import Image from 'next/image';
+import { toast } from 'react-hot-toast';
 
 type FilterProps = {
   options: string[];
@@ -43,6 +44,7 @@ const Filter = ({ options, onApplyFilters, isFilterOpen, setIsFilterOpen }: Filt
      if (setIsFilterOpen) {
     setIsFilterOpen(false);
   }
+   toast.success('Filters applied successfully!');
   };
 
   const handleSliderChange = (values: number[]) => {
@@ -128,7 +130,7 @@ const Filter = ({ options, onApplyFilters, isFilterOpen, setIsFilterOpen }: Filt
   return (
     <>
       {/* Default: Desktop */}
-      <div className="flex-col md:flex hidden items-center gap-4 border border-gray-200 rounded-xl py-4 w-full max-w-4xl mx-auto">
+      <div className="flex-col tablet:flex hidden items-center gap-4 border border-gray-200 rounded-xl py-4 w-full max-w-4xl mx-auto">
         {renderFilterContent()}
       </div>
 

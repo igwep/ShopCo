@@ -9,6 +9,7 @@
   --font-monsterrat:'Montserrat', sans-serif;
   --breakpoint-3xl: 1920px;
   --breakpoint-md: 1200px;
+  --breakpoint-tablet: 1068px;
 }
 
 @keyframes moveIcon {

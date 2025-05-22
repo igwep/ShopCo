@@ -32,7 +32,7 @@ export const NewArrivals = () => {
 
   return (
     <section className=' w-full h-auto space-y-12 py-12 md:px-34 3xl:px-64 px-4'>
-        <h1 className='md:text-5xl text-3xl text-center w-full font-black '>
+        <h1 className='md:text-5xl text-3xl uppercase text-center w-full font-black '>
             Explore Our Products
         </h1>
         <div className='flex flex-col space-y-6 justify-center   items-center w-full '>
@@ -46,7 +46,7 @@ export const NewArrivals = () => {
         <div className='border border-gray-200'>
         </div>
         <div className='flex flex-col space-y-6 justify-center items-center w-full '>
-          <h2 className='md:text-5xl text-3xl text-center w-full font-black mt-12'>Top Selling</h2>
+          <h2 className='md:text-5xl text-3xl text-center w-full font-black mt-12 uppercase'>Top Selling</h2>
           <div className="overflow-x-auto scrollbar-none w-full">
   <div className="flex gap-4 flex-nowrap justify-center w-max px-4">
     <ProductCard products={topSellingProducts} />

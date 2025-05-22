@@ -3,9 +3,13 @@
 import { useState } from 'react'; 
 import { useParams } from 'next/navigation'; 
 import { useProduct } from '@/app/hooks/Product';
+import useFetchProductsFromFireStore from '@/app/hooks/FetchProductFIreStore';
 import { useCart } from '@/app/Context/cartquantityContext';
 import Image from 'next/image';
 import Spinner from '@/app/Components/Spinner';
+import { Product } from '@/app/types/Product';
+import ProductCard from '../ProductCards';
+import ViewAllBtn from '../buttons/ViewAllBtn';
 
 type Review = {
   rating: number;
@@ -14,7 +18,7 @@ type Review = {
   reviewerName: string;
 };
 
-type Product = {
+type SingleProduct = {
   id: string;
   images: string[];
   title: string;
@@ -31,11 +35,21 @@ type Product = {
 
 const ProductSection = () => {
   const { slug } = useParams() as { slug: string };
+  const { category } = useParams() as { category: string };
+  const { data  } = useFetchProductsFromFireStore();
+  
+
   const { product, loading, error } = useProduct(slug) as {
-    product: Product | null;
+    product: SingleProduct | null;
     loading: boolean;
     error: string | null;
   };
+    const similarProducts = product
+      ? data?.filter((SimilarProduct: Product) => SimilarProduct.id !== product.id && SimilarProduct.category === category)
+      : [];
+
+      const threeSimilarProducts = similarProducts.slice(0, 3);
+
  //  const { addItem } = useCart();
     const { items, /* setItems */ } = useCart();
     const cartQuantities = items.reduce((acc: { [key: string]: number }, item) => {
@@ -85,7 +99,7 @@ const ProductSection = () => {
 
         {/* Main info */}
         <div className="md:w-1/2 space-y-6">
-          <h1 className="text-3xl md:text-4xl font-black">{product.title}</h1>
+          <h1 className="text-3xl md:text-4xl font-black uppercase">{product.title}</h1>
 
           <div className="flex items-center gap-4 text-lg font-semibold">
             <span>${product.price}</span>
@@ -206,6 +220,18 @@ const ProductSection = () => {
           </div>
         )}
       </div>
+      {/* similar product section */}
+      <div className="mt-12">
+        <h1 className="text-5xl font-black mb-4 text-center uppercase">Similar Products</h1>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-1 md:gap-2 place-items-center my-4  w-full md:px-34 3xl:px-64 px-4">
+          <ProductCard products={threeSimilarProducts} />
+          
+
+      </div>
+      <div className='flex justify-center'>
+        <ViewAllBtn to={`/Shop/${category}`} />
+      </div>
+    </div>
     </div>
   );
 };

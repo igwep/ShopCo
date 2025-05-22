@@ -77,9 +77,9 @@ const Shop = () => {
         {/* Product Grid + Sorting + Pagination */}
         <div className="w-full lg:w-3/4">
           {/* Sort Dropdown */}
-          <div className="flex w-full items-center justify-between md:justify-end mb-2 px-2">
+          <div className="flex w-full items-center justify-between tablet:justify-end mb-2 px-2">
             <div  onClick={()=>setisFilterOpen(true)} 
-              className='cursor-pointer md:hidden flex'
+              className='cursor-pointer tablet:hidden flex'
               >
               <Image src="/SVG/filterIcon.svg" alt="filter" 
             width={30}
