@@ -11,22 +11,22 @@ Step 1: Page Setup
 Step 2: Product Page UI
 	•	Design the layout for the product detail page.... [checked]
 	•	Create a dynamic route: /shop/[id].js or /product/[slug].... [checked]
-	•	Add placeholders (title, image, price, description, “Add to Cart” button)....in progress
+	•	Add placeholders (title, image, price, description, “Add to Cart” button)....[chceked]
 
 ⸻
 
 PHASE 2: Cart Functionality
 
-Step 3: Cart Page
-	•	Create a /cart page
-	•	Display cart items from the cart context
-	•	Show total price
-	•	Add remove item functionality
+Step 3: Cart Page....[chceked]
+	•	Create a /cart page....[chceked]
+	•	Display cart items from the cart context....[chceked]
+	•	Show total price...inprogress
+	•	Add remove item functionality....[chceked]
 
 Step 4: Add to Cart Logic
-	•	Add “Add to Cart” buttons on product cards
-	•	Connect them to your cart context
-	•	Test that items appear in the cart page
+	•	Add “Add to Cart” buttons on product cards....[chceked]
+	•	Connect them to your cart context....[chceked]
+	•	Test that items appear in the cart page....[chceked]
 
 ⸻
 

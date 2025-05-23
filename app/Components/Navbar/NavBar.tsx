@@ -105,7 +105,7 @@ const NavBar = () => {
               className="w-6 h-auto"
             />
           </button>
-          <button className="relative">
+          <Link href="/Cart" className="relative">
             <Image
               width={100}
               height={100}
@@ -116,7 +116,7 @@ const NavBar = () => {
             <span className="absolute -top-2 -right-2 bg-black text-white text-xs px-1 rounded-full">
               {totalItems}
             </span>
-          </button>
+          </Link>
           <button className="relative">
             <Image
               width={100}

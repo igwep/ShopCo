@@ -38,8 +38,10 @@ type CartItem = {
   images: string[];
   category: string;
   shippingInformation?: string;
+  thumbnail?: string;
   description: string;
   discountPercentage?: number;
+  
 };
 
 type CartContextType = {

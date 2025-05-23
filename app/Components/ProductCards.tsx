@@ -25,7 +25,7 @@ const ProductCard: React.FC<ProductCardsProps> = ({ products, styled }) => {
     addItem({
       id: product.id,
       title: product.title,
-      price: product.price,
+      price: product.price * (1 - (product.discountPercentage ?? 0) / 100),
       images: product.images,
       category: product.category,
       shippingInformation: product.shippingInformation,
@@ -33,6 +33,9 @@ const ProductCard: React.FC<ProductCardsProps> = ({ products, styled }) => {
       discountPercentage: product.discountPercentage,
       quantity: 1,
       rating: product.rating,
+      
+
+      
     });
 
   }
