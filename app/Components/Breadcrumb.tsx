@@ -60,7 +60,7 @@ const Breadcrumb = () => {
           const isLast = index === pathSegments.length - 1;
           const formatted = decodeURIComponent(segment.replace(/-/g, " "));
           return (
-            <li key={index} className="flex items-center">
+            <li key={index} className="flex items-center ">
               {!isLast ? (
                 <>
                   <Link href={href} className="hover:underline text-gray-700 capitalize">
@@ -77,7 +77,7 @@ const Breadcrumb = () => {
                   </span>
                 </>
               ) : (
-                <span className="capitalize text-gray-700 font-semibold" aria-current="page">
+                <span className="capitalize text-gray-700  font-semibold" aria-current="page">
                   {formatted}
                 </span>
               )}

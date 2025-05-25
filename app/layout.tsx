@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import "./globals.css";
 //import NavBar from "./Components/Navbar/NavBar";
-import { Footer } from "./Components/Footer";
+//import { Footer } from "./Components/Footer";
 //import { CartProvider } from "./Context/cartquantityContext";
 
 
@@ -40,7 +40,7 @@ export default function RootLayout({
       {/* <CartProvider> */}
          {/*  <NavBar /> */}
         {children}
-        <Footer />
+        {/* <Footer /> */}
       {/* </CartProvider> */}
       </body>
     </html>

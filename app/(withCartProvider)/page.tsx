@@ -14,7 +14,7 @@ const icons = [
 
 export default function Home() {
   return (
- <div className="font-monsterrat">
+ <div className="font-fancyFont">
 <HeroSection />
 <IconCarousel icons={icons}   />
 <NewArrivals />

@@ -4,9 +4,14 @@
   --background: #ffffff;
   --foreground: #171717;
 }
+@font-face {
+  font-family: fancyFont;
+  src: url('/fonts/a34f9d1faa5f3315-s.p.woff2') format('woff2');
+}
 
 @theme {
   --font-monsterrat:'Montserrat', sans-serif;
+  --font-fancyFont: 'fancyFont', sans-serif;
   --breakpoint-3xl: 1920px;
   --breakpoint-md: 1200px;
   --breakpoint-tablet: 1068px;

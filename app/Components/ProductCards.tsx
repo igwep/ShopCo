@@ -33,9 +33,6 @@ const ProductCard: React.FC<ProductCardsProps> = ({ products, styled }) => {
       discountPercentage: product.discountPercentage,
       quantity: 1,
       rating: product.rating,
-      
-
-      
     });
 
   }
@@ -77,9 +74,9 @@ const handleDecrement = (id: string) => {
   key={product.id}
   className={`${
     styled
-      ? 'md:min-w-[300px] min-w-[194px] max-w-[194px] md:max-w-[300px]'
-      : 'max-w-[300px] min-w-[300px]'
-  } rounded-xl text-center flex-shrink-0`}
+      ? 'w-full md:w-[48%] lg:w-[100%]' // 3 cards per row on large screens
+      : 'w-full max-w-[300px]'
+  } rounded-xl text-center mb-4 mx-1.5 relative group hover:shadow-lg transition-all duration-300`}
 >
   <div className="relative w-full h-[200px] md:h-[298px] bg-[#F0EEED] mb-3 rounded-xl overflow-hidden">
     {isDiscounted && (

@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 export const Footer = () => {
   return (
-    <footer className="bg-[#F0F0F0] pt-40 pb-8 relative w-full">
+    <footer className="bg-[#F0F0F0] font-fancyFont pt-40 pb-8 relative w-full">
       {/* Newsletter Banner */}
       <div className="md:max-w-7xl  mx-4 md:mx-auto -mt-60 bg-black rounded-3xl p-10 flex flex-col lg:flex-row justify-between items-center gap-6">
         <h1 className="text-white text-3xl lg:text-5xl font-black max-w-2xl md:text-center text-start lg:text-left">

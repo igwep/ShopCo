@@ -10,6 +10,7 @@ import Spinner from '@/app/Components/Spinner';
 import { Product } from '@/app/types/Product';
 import ProductCard from '../ProductCards';
 import ViewAllBtn from '../buttons/ViewAllBtn';
+import Breadcrumb from '../Breadcrumb';
 
 type Review = {
   rating: number;
@@ -69,6 +70,7 @@ const ProductSection = () => {
 
   return (
     <div className="max-w-7xl mx-auto my-28 px-4 md:px-10">
+      <Breadcrumb />
       {/* Top grid */}
       <div className="flex flex-col md:flex-row gap-10">
         {/* Image gallery */}

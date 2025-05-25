@@ -7,6 +7,7 @@ import { useCart } from '@/app/Context/cartquantityContext';
 //remember to split the code into multiple files so that it is easier to read and maintain
 const NavBar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const { items } = useCart();
 
   const cartQuantities = items.reduce((acc: { [key: string]: number }, item) => {
@@ -117,7 +118,10 @@ const NavBar = () => {
               {totalItems}
             </span>
           </Link>
-          <button className="relative">
+          <button
+             onMouseEnter={() => setIsProfileOpen(true)}
+             onClick={()=> setIsProfileOpen(true)}
+          className="relative">
             <Image
               width={100}
               height={100}
@@ -126,6 +130,30 @@ const NavBar = () => {
               className="w-7 h-auto"
             />
           </button>
+                {isProfileOpen && (
+        <div
+        onMouseLeave={()=>setIsProfileOpen(false)}
+        className="absolute right-4 top-12 mt-2 w-44 bg-white shadow-lg rounded-xl z-50">
+          <ul className="py-2 text-sm text-gray-700">
+            <li>
+              <Link
+                href="/login"
+                className="block px-4 py-2 font-bold hover:bg-gray-100 transition"
+              >
+                Login
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/signup"
+                className="block px-4 py-2 font-bold hover:bg-gray-100 transition"
+              >
+                Sign Up
+              </Link>
+            </li>
+          </ul>
+        </div>
+      )}
         </div>
       </div>
     </nav>

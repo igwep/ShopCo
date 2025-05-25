@@ -37,7 +37,7 @@ export const NewArrivals = () => {
         </h1>
         <div className='flex flex-col space-y-6 justify-center   items-center w-full '>
         <div className="overflow-x-auto scrollbar-none w-full">
-  <div className="flex gap-4 flex-nowrap justify-center w-max px-4">
+  <div className="flex gap-4 flex-nowrap justify-center  md:w-full w-max px-4">
     <ProductCard products={topFourProducts} />
   </div>
 </div>
@@ -48,7 +48,7 @@ export const NewArrivals = () => {
         <div className='flex flex-col space-y-6 justify-center items-center w-full '>
           <h2 className='md:text-5xl text-3xl text-center w-full font-black mt-12 uppercase'>Top Selling</h2>
           <div className="overflow-x-auto scrollbar-none w-full">
-  <div className="flex gap-4 flex-nowrap justify-center w-max px-4">
+  <div className="flex gap-4 flex-nowrap justify-center md:w-full w-max px-4">
     <ProductCard products={topSellingProducts} />
   </div>
 </div>
