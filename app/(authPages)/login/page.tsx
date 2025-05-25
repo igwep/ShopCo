@@ -1,8 +1,8 @@
-// app/login/page.tsx
 'use client';
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -25,13 +25,12 @@ export default function LoginPage() {
         {/* Logo Area */}
         <div className="mb-6 text-center items-center flex flex-col space-y-4 justify-center">
           <Image
-                   width={130}
-                   height={120}
-                   src="/SVG/SHOP.CO.svg"
-                   alt="logo"
-                   className="w-36  h-auto"
-                 />
-          
+            width={130}
+            height={120}
+            src="/SVG/SHOP.CO.svg"
+            alt="logo"
+            className="w-36 h-auto"
+          />
           <p className="text-sm text-gray-500">Log in to your account</p>
         </div>
 
@@ -67,7 +66,7 @@ export default function LoginPage() {
 
           <button
             type="submit"
-            className="w-full bg-black hover:opacity-90 text-white py-2 rounded-lg  transition"
+            className="w-full cursor-pointer bg-black hover:opacity-90 text-white py-2 rounded-lg transition"
           >
             Log In
           </button>
@@ -78,22 +77,27 @@ export default function LoginPage() {
           <p className="text-sm text-gray-500 mb-2">Or continue with</p>
           <button
             onClick={handleGoogleSignIn}
-            className="flex items-center gap-2 justify-center w-full border border-gray-300 rounded-lg py-2 hover:bg-gray-50 transition"
+            className="flex items-center gap-2 justify-center w-full border border-gray-300 rounded-lg py-2 cursor-pointer hover:bg-gray-50 transition"
           >
             <Image
-                   width={30}
-                   height={25}
-                   src="/SVG/icons8-google (1).svg"
-                   alt="logo"
-                   className=" h-auto"
-                 />
-           {/*  <img
-              src="/google-icon.svg"
-              alt="Google"
-              className="h-5 w-5 mr-2"
-            /> */}
+              width={30}
+              height={25}
+              src="/SVG/icons8-google (1).svg"
+              alt="logo"
+              className="h-auto"
+            />
             <span className="text-sm">Sign in with Google</span>
           </button>
+        </div>
+
+        {/* Sign Up Link */}
+        <div className="mt-4 text-center">
+          <p className="text-sm text-gray-600">
+            Don&apos;t have an account?{' '}
+            <Link href="/signup" className="text-black font-medium hover:underline">
+              Sign up
+            </Link>
+          </p>
         </div>
       </div>
     </div>

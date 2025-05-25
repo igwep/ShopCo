@@ -2,24 +2,77 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { auth, googleProvider } from '@/app/Firebase';
+import { createUserWithEmailAndPassword, signInWithPopup, sendEmailVerification, /* signOut */ } from 'firebase/auth';
+import { useRouter } from 'next/navigation';
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '@/app/Firebase';
+
 
 export default function SignupPage() {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [emailVerified, setEmailVerified] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSignup = (e: React.FormEvent) => {
+  //signOut(auth);
+  const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      alert('Passwords do not match');
+    if (password !== confirmPassword) {    
+      setError('Passwords do not match');
       return;
     }
-    // TODO: Handle signup logic here
+    setLoading(true);
+    setError('');
+    try { 
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+      // create firestore user document
+      await setDoc(doc(db, 'users', user.uid), {
+        email: user.email,
+        createdAt: serverTimestamp(),
+        displayName: '', // You can set a default display name or leave it empty
+        phone:'',
+        address: '',
+        profilePicture: '', // You can set a default profile picture URL or leave it empty
+        isAdmin: false, // Set to true if the user is an admin
+        isVerified: false, // Set to true if the user is verified
+        // Add any other fields you want to store
+      })
+
+
+      // Send email verification
+      await sendEmailVerification(user);
+      /* router.push('/'); // Redirect to home page after signup */
+
+    } catch (err) {
+      setError('Failed to create an account. Please try again.');
+      console.error('Signup error:', err);
+    } finally {
+      setEmailVerified(true);
+      setLoading(false);
+    }
     console.log('Signing up:', { email, password });
   };
 
-  const handleGoogleSignUp = () => {
-    // TODO: Implement Google sign-up logic
+  const handleGoogleSignUp = async () => {
+    
+     try {
+      await signInWithPopup(auth, googleProvider);
+      router.push('/');
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An unknown error occurred during Google sign up.');
+      }
+    }
     console.log('Google Sign-Up');
   };
 
@@ -37,6 +90,16 @@ export default function SignupPage() {
           />
           <p className="text-sm text-gray-500">Create your account</p>
         </div>
+        <h1 className='text-red-400 p-4'>{error}</h1>
+      {emailVerified && (
+  <p className="text-sm text-green-500 mb-4">
+    A verification email has been sent to {email}. Please check your inbox.{' '}
+    <a href="/" className="text-black underline hover:opacity-90">
+      Go to Home
+    </a>
+  </p>
+)}
+
 
         {/* Signup Form */}
         <form onSubmit={handleSignup} className="space-y-4">
@@ -54,39 +117,58 @@ export default function SignupPage() {
             />
           </div>
 
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-              Password
-            </label>
-            <input
-              id="password"
-              type="password"
-              required
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-            />
-          </div>
+         <div>
+      <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+        Password
+      </label>
+      <div className="relative">
+        <input
+          id="password"
+          type={showPassword ? 'text' : 'password'}
+          required
+          className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 pr-10"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+        />
 
-          <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-              Confirm Password
-            </label>
-            <input
-              id="confirmPassword"
-              type="password"
-              required
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-              value={confirmPassword}
-              onChange={e => setConfirmPassword(e.target.value)}
-            />
-          </div>
+        <button
+          type="button"
+          onClick={() => setShowPassword(prev => !prev)}
+          className="absolute inset-y-0 right-2 flex items-center text-sm text-gray-600"
+        >
+          {showPassword ? 'Hide' : 'Show'}
+        </button>
+      </div>
+    </div>
+
+         <div>
+      <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+        Confirm Password
+      </label>
+      <div className="relative">
+        <input
+          id="confirmPassword"
+          type={showConfirmPassword ? 'text' : 'password'}
+          required
+          className="mt-1 block w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+          value={confirmPassword}
+          onChange={e => setConfirmPassword(e.target.value)}
+        />
+        <button
+          type="button"
+          onClick={() => setShowConfirmPassword(prev => !prev)}
+          className="absolute inset-y-0 right-2 flex items-center text-sm text-gray-600"
+        >
+          {showConfirmPassword ? 'Hide' : 'Show'}
+        </button>
+      </div>
+    </div>
 
           <button
             type="submit"
             className="w-full bg-black hover:opacity-90 text-white py-2 rounded-lg transition"
           >
-            Sign Up
+         {loading ? 'Creating Account...' : 'Sign Up'}
           </button>
         </form>
 
@@ -106,6 +188,14 @@ export default function SignupPage() {
             />
             <span className="text-sm">Sign up with Google</span>
           </button>
+        </div>
+         <div className="mt-4 text-center">
+          <p className="text-sm text-gray-600">
+            Already have an Account?{' '}
+            <Link href="/login" className="text-black font-medium hover:underline">
+              Log in
+            </Link>
+          </p>
         </div>
       </div>
     </div>

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { toast } from "react-hot-toast";
 import Breadcrumb from "@/app/Components/Breadcrumb";
 import Link from "next/link";
+import ProtectedRoute from "@/app/Components/ProtectedRoute";
 
 const Cartpage = () => {
   const { items, setItems } = useCart();
@@ -70,7 +71,7 @@ const Cartpage = () => {
   };
 
   return (
-    <>
+    <ProtectedRoute>
       {items.length === 0 ? (
         <div className="text-center h-screen font-fancyFont flex flex-col items-center justify-center">
           <div className="md:px-34 3xl:px-64 px-4">
@@ -239,7 +240,7 @@ const Cartpage = () => {
           </div>
         </div>
       )}
-    </>
+    </ProtectedRoute>
   );
 };
 

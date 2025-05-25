@@ -97,7 +97,7 @@ const NavBar = () => {
         </div>
         {/* Cart and Profile */}
         <div className="flex items-center md:gap-6 gap-3">
-        <button className="relative">
+        <button className="relative md:hidden flex">
             <Image
               width={100}
               height={100}
@@ -133,8 +133,8 @@ const NavBar = () => {
                 {isProfileOpen && (
         <div
         onMouseLeave={()=>setIsProfileOpen(false)}
-        className="absolute right-4 top-12 mt-2 w-44 bg-white shadow-lg rounded-xl z-50">
-          <ul className="py-2 text-sm text-gray-700">
+        className="absolute right-4 top-12 mt-2 border w-44 bg-white shadow-lg rounded-xl z-50">
+          <ul className="py-2 text-sm ">
             <li>
               <Link
                 href="/login"
