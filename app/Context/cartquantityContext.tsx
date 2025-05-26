@@ -1,33 +1,17 @@
-/* "use client";
-import { createContext, useState, ReactNode } from "react";
-
-interface GlobalContextType { 
-    user: string | null;
-    setUser: (user:string | null ) => void
-}
-
-
- export const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
-export const GlobalProvider = ({ children }: { children: ReactNode }) => {
-    const [user, setUser] = useState<string | null>(null);
-
-    return (
-        <GlobalContext.Provider value={{ user, setUser }}>
-            {children}
-        </GlobalContext.Provider>
-    );
-};
-/* export const useGlobalContext = () => {
-  const context = useContext(GlobalContext);
-  if (context === undefined) {
-    throw new Error('useGlobalContext must be used within a GlobalProvider');
-  }
-  return context;
-}; */ // context/CartContext.tsx\
 
 "use client";
-import { createContext, useEffect, useContext, useState, useMemo, ReactNode } from 'react';
+import { 
+   createContext,
+   useEffect, 
+   useContext, 
+   useState, 
+   useMemo, 
+   ReactNode
+   } from 'react';
 import { toast } from 'react-hot-toast';
+import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { db } from '@/app/Firebase'; // Ensure you have the correct path to your Firebase config
+import { useUser } from './userContext';
 
 type CartItem = {
   id: string;
@@ -58,12 +42,59 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [items, setItems] = useState<CartItem[]>([]);
-   useEffect(() => {
+  const { user } = useUser();
+
+  // Load initial cart items from localStorage
+  // and optionally from Firestore if user is logged in
+
+  useEffect(() => {
+  const loadCart = async () => {
+    const storedCart = localStorage.getItem("cartItems");
+    const parsedCart: CartItem[] = storedCart ? JSON.parse(storedCart) : [];
+
+    if (user?.uid) {
+      const docRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const userData = docSnap.data();
+        const userCart: CartItem[] = userData.items || [];
+
+        // Merge localStorage + Firestore cart
+        const mergedCart = [...userCart, ...parsedCart].reduce((acc: CartItem[], item: CartItem) => {
+          const existing = acc.find(i => i.id === item.id);
+          if (existing) {
+            existing.quantity += item.quantity;
+          } else {
+            acc.push(item);
+          }
+          return acc;
+        }, []);
+
+        setItems(mergedCart);
+
+        //  Save merged cart back to Firestore
+        await updateDoc(docRef, { items: mergedCart });
+      } else {
+        // If user doc doesn't exist, initialize it with local cart
+        await setDoc(docRef, { items: parsedCart });
+        setItems(parsedCart);
+      }
+    } else {
+      // Not logged in: use local storage
+      setItems(parsedCart);
+    }
+  };
+
+  loadCart();
+}, [user]);
+
+   /* useEffect(() => {
     const storedCart = localStorage.getItem("cartItems");
     if (storedCart) {
       setItems(JSON.parse(storedCart));
     }
-  }, []);
+  }, []); */
 
   //  Save to localStorage whenever items change
   useEffect(() => {

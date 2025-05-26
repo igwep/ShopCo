@@ -23,7 +23,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setLoading(false);
 
        if (user) {
-        console.log(" User is logged in:", user.email);
+        console.log(" User is logged in:", user);
       } else {
         console.log(" No user is logged in.");
       }

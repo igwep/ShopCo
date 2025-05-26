@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { auth, googleProvider } from '@/app/Firebase';
 import { createUserWithEmailAndPassword, signInWithPopup, sendEmailVerification, /* signOut */ } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
-import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/app/Firebase';
 
 
@@ -43,6 +43,7 @@ export default function SignupPage() {
         profilePicture: '', // You can set a default profile picture URL or leave it empty
         isAdmin: false, // Set to true if the user is an admin
         isVerified: false, // Set to true if the user is verified
+        items: [], // Initialize with an empty array for cart items
         // Add any other fields you want to store
       })
 
@@ -62,9 +63,30 @@ export default function SignupPage() {
   };
 
   const handleGoogleSignUp = async () => {
-    
+    setLoading(true);
+    setError('');
      try {
-      await signInWithPopup(auth, googleProvider);
+     const result = await signInWithPopup(auth, googleProvider);
+     const user = result.user;
+     // check if user already exists in Firestore
+    const userRef = doc(db, 'users', user.uid);
+    const userSnap = await getDoc(userRef);
+
+    if (!userSnap.exists()) {
+      // Create Firestore document if new user
+      await setDoc(userRef, {
+        email: user.email,
+        createdAt: serverTimestamp(),
+        displayName: user.displayName || '',
+        phone: user.phoneNumber || '',
+        address: '',
+        profilePicture: user.photoURL || '',
+        isAdmin: false,
+        isVerified: true, // Google users are usually considered verified
+        items: [], // Initialize with an empty array for cart items
+      });
+    }
+
       router.push('/');
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -73,6 +95,7 @@ export default function SignupPage() {
         setError('An unknown error occurred during Google sign up.');
       }
     }
+    setLoading(false);
     console.log('Google Sign-Up');
   };
 

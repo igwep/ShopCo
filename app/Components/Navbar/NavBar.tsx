@@ -3,9 +3,13 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useCart } from '@/app/Context/cartquantityContext';
+import { useAuth } from '@/app/Context/authContext';
+import { toast } from 'react-hot-toast';
+import { auth } from '@/app/Firebase'; // Ensure you have the correct path to your Firebase config
 
 //remember to split the code into multiple files so that it is easier to read and maintain
 const NavBar = () => {
+  const { user } = useAuth();
   const [showDropdown, setShowDropdown] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const { items } = useCart();
@@ -15,6 +19,19 @@ const NavBar = () => {
     return acc;
   }, {});
   const totalItems = Object.values(cartQuantities).reduce((acc, quantity) => acc + quantity, 0);
+
+  const handleLogout = async () => {
+
+      try {
+        setIsProfileOpen(false);
+        await auth.signOut()
+      } catch (error) {
+        console.error("Logout error:", error);
+        toast.error("Failed to log out. Please try again.");
+      }
+      toast.success("Logged out successfully!");
+
+    }
 
   return (
     <nav className="flex justify-center fixed top-0 w-full  py-4 bg-white shadow-md  z-50">
@@ -120,7 +137,7 @@ const NavBar = () => {
           </Link>
           <button
              onMouseEnter={() => setIsProfileOpen(true)}
-             onClick={()=> setIsProfileOpen(true)}
+             onClick={()=> setIsProfileOpen(!isProfileOpen)}
           className="relative">
             <Image
               width={100}
@@ -130,30 +147,59 @@ const NavBar = () => {
               className="w-7 h-auto"
             />
           </button>
-                {isProfileOpen && (
-        <div
-        onMouseLeave={()=>setIsProfileOpen(false)}
-        className="absolute right-4 top-12 mt-2 border w-44 bg-white shadow-lg rounded-xl z-50">
-          <ul className="py-2 text-sm ">
-            <li>
-              <Link
-                href="/login"
-                className="block px-4 py-2 font-bold hover:bg-gray-100 transition"
-              >
-                Login
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/signup"
-                className="block px-4 py-2 font-bold hover:bg-gray-100 transition"
-              >
-                Sign Up
-              </Link>
-            </li>
-          </ul>
-        </div>
-      )}
+     {isProfileOpen && (
+  <div
+    onMouseLeave={() => setIsProfileOpen(false)}
+    className="absolute right-4 top-12 mt-2 border min-w-44 bg-white shadow-lg rounded-xl z-50"
+  >
+    {!user ? (
+      // When user is NOT logged in
+      <ul className="py-2 text-sm">
+        <li>
+          <Link
+            href="/login"
+            className="block px-4 py-2 font-bold hover:bg-gray-100 transition"
+          >
+            Login
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="/signup"
+            className="block px-4 py-2 font-bold hover:bg-gray-100 transition"
+          >
+            Sign Up
+          </Link>
+        </li>
+      </ul>
+    ) : (
+      // When user IS logged in
+      <ul className="py-2 text-sm">
+        <li className="px-4 py-2 font-bold text-gray-700">
+          👤 {user.displayName || user.email}
+        </li>
+        <li>
+          <Link
+            href="/profile"
+            className="block px-4 py-2 font-bold hover:bg-gray-100 transition"
+          >
+            Profile
+          </Link>
+        </li>
+        <li>
+          <button
+           onClick={handleLogout}
+            type="button"
+            className="w-full text-left px-4 py-2 font-bold hover:bg-gray-100 transition"
+          >
+            Logout
+          </button>
+        </li>
+      </ul>
+    )}
+  </div>
+)}
+
         </div>
       </div>
     </nav>

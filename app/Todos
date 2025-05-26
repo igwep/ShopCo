@@ -11,13 +11,13 @@ Step 1: Page Setup
 Step 2: Product Page UI
 	•	Design the layout for the product detail page.... [checked]
 	•	Create a dynamic route: /shop/[id].js or /product/[slug].... [checked]
-	•	Add placeholders (title, image, price, description, “Add to Cart” button)....[chceked]
+	•	Add placeholders (title, image, price, description, “Add to Cart” button)....[checked]
 
 ⸻
 
 PHASE 2: Cart Functionality
 
-Step 3: Cart Page....[chceked]
+Step 3: Cart Page....[checked]
 	•	Create a /cart page....[chceked]
 	•	Display cart items from the cart context....[chceked]
 	•	Show total price...inprogress
@@ -32,29 +32,29 @@ Step 4: Add to Cart Logic
 
 PHASE 3: Database Setup
 
-Step 5: Set Up Firebase (or Supabase)
-	•	Create a Firestore database
-	•	Add a products collection
-	•	Add sample product documents (title, image, price, category, etc.)
+Step 5: Set Up Firebase (or Supabase)....[chceked]
+	•	Create a Firestore database....[chceked]
+	•	Add a products collection....[chceked]
+	•	Add sample product documents (title, image, price, category, etc.)....[chceked]
 
-Step 6: Fetch Product Data
+Step 6: Fetch Product Data....[chceked]
 	•	Use getServerSideProps or getStaticProps to fetch products
-	•	Display real products on the /shop and category pages
-	•	Fetch individual product details by ID or slug
+	•	Display real products on the /shop and category pages....[chceked]
+	•	Fetch individual product details by ID or slug....[chceked]
 
 ⸻
 
 PHASE 4: Authentication
 
-Step 7: Set Up Auth
-	•	Add Firebase Auth to your project
-	•	Create login page
-	•	Create register/signup page
-	•	Store authenticated user state (Context or Firebase hooks)
+Step 7: Set Up Auth....[chceked]
+	•	Add Firebase Auth to your project....[chceked]
+	•	Create login page....[chceked]
+	•	Create register/signup page....[chceked]
+	•	Store authenticated user state (Context or Firebase hooks)....[chceked]
 
 Step 8: Protect Pages
-	•	Redirect unauthenticated users from /cart and /checkout
-	•	Show “Login to continue” if not signed in
+	•	Redirect unauthenticated users from /cart and /checkout....[chceked]
+	•	Show “Login to continue” if not signed in....[chceked]
 
 ⸻
 
