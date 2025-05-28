@@ -93,7 +93,7 @@ const NavBar = () => {
               </div>
             )}
           </div>
-          <a href="#" className="hover:text-black">On Sale</a>
+          <Link href="#" className="hover:text-black">On Sale</Link>
           <a href="#" className="hover:text-black">New Arrivals</a>
           <a href="#" className="hover:text-black">Brand</a>
         </div>

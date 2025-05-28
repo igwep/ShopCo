@@ -12,14 +12,15 @@ import ProductCard from '../ProductCards';
 import ViewAllBtn from '../buttons/ViewAllBtn';
 import Breadcrumb from '../Breadcrumb';
 
-type Review = {
+
+/* type Review = {
   rating: number;
   comment: string;
   date: string;
   reviewerName: string;
-};
+}; */
 
-type SingleProduct = {
+/* type SingleProduct = {
   id: string;
   images: string[];
   title: string;
@@ -32,16 +33,55 @@ type SingleProduct = {
   sku?: string;
   shippingInformation?: string;
   reviews?: Review[];
-};
+}; */
 
 const ProductSection = () => {
   const { slug } = useParams() as { slug: string };
   const { category } = useParams() as { category: string };
   const { data  } = useFetchProductsFromFireStore();
+  const {/*  items, */ setItems, addItem } = useCart();
+
+  const handleIncrement = (id: string) => {
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+      )
+    );
+  };
+
+  const handleDecrement = (id: string) => {
+    setItems((prevItems) => {
+      const itemToUpdate = prevItems.find((item) => item.id === id);
+      if (!itemToUpdate) return prevItems;
+
+      if (itemToUpdate.quantity > 1) {
+        return prevItems.map((item) =>
+          item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+        );
+      } else {
+        return prevItems.filter((item) => item.id !== id);
+      }
+    });
+  };
   
+  const handleAddToCart = (product: Product) => {
+    addItem({
+      id: product.id,
+      title: product.title,
+      price: product.price * (1 - (product.discountPercentage ?? 0) / 100),
+      images: product.images,
+      category: product.category,
+      shippingInformation: product.shippingInformation,
+      description: product.description,
+      discountPercentage: product.discountPercentage,
+      quantity: 1,
+      rating: product.rating,
+    });
+
+  }
 
   const { product, loading, error } = useProduct(slug) as {
-    product: SingleProduct | null;
+    product: Product | null;
     loading: boolean;
     error: string | null;
   };
@@ -146,21 +186,23 @@ const ProductSection = () => {
           {quantity > 0 ? (
       <div className="flex items-center space-x-2">
         <button
-          /* onClick={(e) => {   e.preventDefault();  handleDecrement(product.id)}} */
+          onClick={(e) => {   e.preventDefault();  handleDecrement(product.id)}}
           className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800 transition duration-300"
         >
           −
         </button>
         <span className="px-2 text-sm font-medium">{quantity}</span>
         <button
-          /* onClick={(e) => {  e.preventDefault();  handleIncrement(product.id)}} */
+          onClick={(e) => {  e.preventDefault();  handleIncrement(product.id)}}
           className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800 transition duration-300"
         >
           +
         </button>
       </div>
     ) : (
-     <button className="bg-black text-white w-full py-4 rounded-full font-semibold hover:opacity-90 transition">
+     <button
+     onClick={()=> handleAddToCart(product)}
+     className="bg-black text-white w-full py-4 rounded-full font-semibold hover:opacity-90 transition">
             Add to Cart
           </button>
     )}

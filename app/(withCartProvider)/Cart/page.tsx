@@ -2,13 +2,13 @@
 import React from "react";
 import { useCart } from "@/app/Context/cartquantityContext";
 import Image from "next/image";
-import { toast } from "react-hot-toast";
+//import { toast } from "react-hot-toast";
 import Breadcrumb from "@/app/Components/Breadcrumb";
 import Link from "next/link";
 import ProtectedRoute from "@/app/Components/ProtectedRoute";
 
 const Cartpage = () => {
-  const { items, setItems } = useCart();
+  const { items, setItems, removeItem } = useCart();
 
   const subtotal = items.reduce<number>((sum, item) => {
     return sum + item.price * item.quantity;
@@ -51,10 +51,10 @@ const Cartpage = () => {
     });
   };
 
-  const handleRemoveItem = (id: string) => {
+/*   const handleRemoveItem = (id: string) => {
     setItems((prevItems) => prevItems.filter((item) => item.id !== id));
     toast.error("Item removed from cart");
-  };
+  }; */
 
   const handlePrice = (
     price: number,
@@ -122,7 +122,7 @@ const Cartpage = () => {
                         <div className="flex justify-between items-center w-full">
                           <h2 className="font-semibold">{item.title}</h2>
                           <button
-                            onClick={() => handleRemoveItem(item.id)}
+                            onClick={() => removeItem(item.id)}
                             className="text-red-600 hover:underline text-sm"
                           >
                             <Image

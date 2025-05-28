@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+//import { auth, googleProvider } from '@/app/Firebase';
+//import { signInWithEmailAndPassword, signInWithPopup, sendEmailVerification } from 'firebase/auth';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
