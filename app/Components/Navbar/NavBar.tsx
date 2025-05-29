@@ -56,47 +56,58 @@ const NavBar = () => {
          </Link>
         </div>
         {/* Nav Links */}
-        <div className="relative hidden  md:flex gap-6  font-medium text-gray-700">
-          {/* Shop with Dropdown */}
-          <div
-            className="relative flex items-center gap-1 cursor-pointer hover:text-black"
-            onMouseEnter={() => setShowDropdown(true)}
-            onClick={() => setShowDropdown(!showDropdown)}
-          >
-            <span>Shop</span>
-            <Image
-              width={100}
-              height={100}
-              src="/SVG/dropdownArrow.svg"
-              alt="arrow down icon"
-              className="w-2 h-auto mt-[2px]"
-            />
-            {showDropdown && (
-              <div
-              onMouseLeave={() => setShowDropdown(false)}
-              className="absolute  top-full left-0 mt-2 w-48 bg-white border shadow-md rounded-md z-50">
-                <Link href="/Shop" className="block px-4 py-2 hover:bg-gray-100">
-                  All Products
-                </Link>
-                <a href={`/Shop/beauty`}className="block px-4 py-2 hover:bg-gray-100">
-                  Beauty
-                </a>
-                <a href={`/Shop/fragrances`} className="block px-4 py-2 hover:bg-gray-100">
-                  Fragrances
-                </a>
-                <a href={`/Shop/furniture`} className="block px-4 py-2 hover:bg-gray-100">
-                  Furnitures
-                </a>
-                <a href={`/Shop/groceries`} className="block px-4 py-2 hover:bg-gray-100">
-                  Groceries
-                </a>
-              </div>
-            )}
-          </div>
-          <Link href="#" className="hover:text-black">On Sale</Link>
-          <a href="#" className="hover:text-black">New Arrivals</a>
-          <a href="#" className="hover:text-black">Brand</a>
+        <div className="relative hidden md:flex gap-6 font-medium text-gray-700">
+      {/* Shop with Dropdown */}
+      <div
+        className="relative flex items-center gap-1 cursor-pointer hover:text-black"
+        onMouseEnter={() => setShowDropdown(true)}
+          onClick={() => setShowDropdown(!showDropdown)}
+       /*  onMouseLeave={() => setShowDropdown(false)} */
+      >
+        <span>Shop</span>
+        <Image
+          width={100}
+          height={100}
+          src="/SVG/dropdownArrow.svg"
+          alt="arrow down icon"
+          className="w-2 h-auto mt-[2px]"
+        />
+
+        <div
+        onMouseLeave={() => setShowDropdown(false)}
+          className={`absolute top-full left-0 mt-2 w-48 bg-white border shadow-md rounded-md z-50 transform transition-all duration-300 ease-in-out ${
+            showDropdown ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'
+          }`}
+        >
+          <Link href="/Shop" className="block px-4 py-2 hover:bg-gray-100">
+            All Products
+          </Link>
+          <a href={`/Shop/beauty`} className="block px-4 py-2 hover:bg-gray-100">
+            Beauty
+          </a>
+          <a href={`/Shop/fragrances`} className="block px-4 py-2 hover:bg-gray-100">
+            Fragrances
+          </a>
+          <a href={`/Shop/furniture`} className="block px-4 py-2 hover:bg-gray-100">
+            Furnitures
+          </a>
+          <a href={`/Shop/groceries`} className="block px-4 py-2 hover:bg-gray-100">
+            Groceries
+          </a>
         </div>
+      </div>
+
+      {/* Other Nav Items */}
+      <Link href="#" className="hover:text-black">
+        On Sale
+      </Link>
+      <a href="#" className="hover:text-black">
+        New Arrivals
+      </a>
+      <a href="#" className="hover:text-black">
+        Brand
+      </a>
+    </div>
         {/* Search Bar */}
         <div className="md:flex hidden flex-1 max-w-2xl items-center rounded-full px-3 py-3 bg-gray-100">
           <Image
@@ -147,10 +158,10 @@ const NavBar = () => {
               className="w-7 h-auto"
             />
           </button>
-     {isProfileOpen && (
+    {isProfileOpen && (
   <div
     onMouseLeave={() => setIsProfileOpen(false)}
-    className="absolute right-4 top-12 mt-2 border min-w-44 bg-white shadow-lg rounded-xl z-50"
+    className="absolute right-4 top-12 mt-2 min-w-44 bg-white shadow-lg rounded-xl z-50 transform transition-all duration-300 ease-in-out opacity-100 translate-y-0"
   >
     {!user ? (
       // When user is NOT logged in
@@ -188,7 +199,7 @@ const NavBar = () => {
         </li>
         <li>
           <button
-           onClick={handleLogout}
+            onClick={handleLogout}
             type="button"
             className="w-full text-left px-4 py-2 font-bold hover:bg-gray-100 transition"
           >
@@ -199,6 +210,7 @@ const NavBar = () => {
     )}
   </div>
 )}
+
 
         </div>
       </div>

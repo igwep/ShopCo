@@ -8,6 +8,7 @@ import { createUserWithEmailAndPassword, signInWithPopup, sendEmailVerification,
 import { useRouter } from 'next/navigation';
 import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/app/Firebase';
+import { toast } from 'react-hot-toast';
 
 
 export default function SignupPage() {
@@ -23,44 +24,66 @@ export default function SignupPage() {
 
   //signOut(auth);
   const handleSignup = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {    
-      setError('Passwords do not match');
-      return;
-    }
-    setLoading(true);
-    setError('');
-    try { 
+  e.preventDefault();
+
+  if (password !== confirmPassword) {
+    setError('Passwords do not match');
+    return;
+  }
+
+  setLoading(true);
+  setError('');
+
+  try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
-      // create firestore user document
-      await setDoc(doc(db, 'users', user.uid), {
-        email: user.email,
-        createdAt: serverTimestamp(),
-        displayName: '', // You can set a default display name or leave it empty
-        phone:'',
-        address: '',
-        profilePicture: '', // You can set a default profile picture URL or leave it empty
-        isAdmin: false, // Set to true if the user is an admin
-        isVerified: false, // Set to true if the user is verified
-        items: [], // Initialize with an empty array for cart items
-        // Add any other fields you want to store
-      })
 
+    // Create user in Firestore
+    await setDoc(doc(db, 'users', user.uid), {
+      email: user.email,
+      createdAt: serverTimestamp(),
+      displayName: '',
+      phone: '',
+      address: '',
+      profilePicture: '',
+      isAdmin: false,
+      isVerified: false,
+      items: [],
+    });
 
-      // Send email verification
-      await sendEmailVerification(user);
-      /* router.push('/'); // Redirect to home page after signup */
+    // Send email verification
+    await sendEmailVerification(user);
 
-    } catch (err) {
-      setError('Failed to create an account. Please try again.');
-      console.error('Signup error:', err);
-    } finally {
-      setEmailVerified(true);
-      setLoading(false);
+    // Optional: you can show a toast or message here
+    toast.success('Account created! Please check your email to verify your account.');
+
+    // Don't redirect yet if waiting for email verification
+    setEmailVerified(true);
+
+  } catch (error: any) {
+    console.error('Signup error:', error);
+
+    let message = 'Failed to create an account. Please try again.';
+
+    if (error.code === 'auth/email-already-in-use') {
+      message = 'This email is already in use.';
+    } else if (error.code === 'auth/invalid-email') {
+      message = 'Invalid email format.';
+    } else if (error.code === 'auth/weak-password') {
+      message = 'Password should be at least 6 characters.';
+    } else if (error.code === 'auth/operation-not-allowed') {
+      message = 'Email/password accounts are not enabled.';
     }
-    console.log('Signing up:', { email, password });
-  };
+
+    toast.error(message);
+    setError(message);
+  } finally {
+    setLoading(false);
+  }
+
+  console.log('Signing up:', { email, password });
+};
+
 
   const handleGoogleSignUp = async () => {
     setLoading(true);
@@ -114,7 +137,7 @@ export default function SignupPage() {
           <p className="text-sm text-gray-500">Create your account</p>
         </div>
         <h1 className='text-red-400 p-4'>{error}</h1>
-      {emailVerified && (
+{emailVerified && !error && (
   <p className="text-sm text-green-500 mb-4">
     A verification email has been sent to {email}. Please check your inbox.{' '}
     <a href="/" className="text-black underline hover:opacity-90">
@@ -122,6 +145,7 @@ export default function SignupPage() {
     </a>
   </p>
 )}
+
 
 
         {/* Signup Form */}
@@ -189,7 +213,11 @@ export default function SignupPage() {
 
           <button
             type="submit"
-            className="w-full bg-black hover:opacity-90 text-white py-2 rounded-lg transition"
+            className={`w-full py-2 rounded-lg transition ${
+    loading
+      ? 'bg-gray-400 cursor-not-allowed'
+      : 'bg-black hover:opacity-90 text-white cursor-pointer'
+  }`}
           >
          {loading ? 'Creating Account...' : 'Sign Up'}
           </button>

@@ -3,23 +3,90 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-//import { auth, googleProvider } from '@/app/Firebase';
-//import { signInWithEmailAndPassword, signInWithPopup, sendEmailVerification } from 'firebase/auth';
+import { useRouter } from 'next/navigation';
+import { auth, googleProvider } from '@/app/Firebase';
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { toast } from 'react-hot-toast';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    // TODO: Handle login logic here
-    console.log('Logging in:', { email, password });
-  };
+  const handleLogin = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-  const handleGoogleSignIn = () => {
-    // TODO: Implement Google sign-in
-    console.log('Google Sign-In');
-  };
+  if (!email || !password) {
+    const message = 'Email and password are required';
+    toast.error(message);
+    setError(message);
+    return;
+  }
+
+  setLoading(true);
+  setError(null);
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    toast.success('Logged in successfully!');
+    setEmail('');
+    router.push('/');
+  } catch (error: any) {
+    console.error('Login error:', error);
+
+    let message = 'Failed to log in. Please try again.';
+
+    if (error.code === 'auth/user-not-found') {
+      message = 'User not found. Please check your email.';
+    } else if (error.code === 'auth/wrong-password') {
+      message = 'Incorrect password.';
+    } else if (error.code === 'auth/invalid-email') {
+      message = 'Invalid email format.';
+    } else if (error.code === 'auth/invalid-credential') {
+      message = 'Wrong email or password. Please try again.';
+    } else if (error.code === 'auth/too-many-requests') {
+      message = 'Too many login attempts. Please try again later.';
+    }
+
+    toast.error(message);
+    setError(message);
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+
+ const handleGoogleSignIn = async () => {
+  setLoading(true);
+  setError(null);
+
+  try {
+    await signInWithPopup(auth, googleProvider);
+    toast.success('Logged in with Google successfully!');
+    router.push('/');
+  } catch (error: any) {
+    console.error('Google Sign-In error:', error);
+
+    let message = 'Failed to log in with Google. Please try again.';
+
+    if (error.code === 'auth/popup-closed-by-user') {
+      message = 'Google sign-in was canceled.';
+    } else if (error.code === 'auth/cancelled-popup-request') {
+      message = 'Another popup is already open.';
+    }
+
+    toast.error(message);
+    setError(message);
+  } finally {
+    setLoading(false);
+    setEmail('');
+  }
+};
+
 
   return (
     <div className="min-h-screen flex items-center font-fancyFont justify-center bg-gray-100 px-4">
@@ -35,6 +102,7 @@ export default function LoginPage() {
           />
           <p className="text-sm text-gray-500">Log in to your account</p>
         </div>
+         <h1 className='text-red-400 p-4'>{error}</h1>
 
         {/* Login Form */}
         <form onSubmit={handleLogin} className="space-y-4">
@@ -53,25 +121,41 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-              Password
-            </label>
-            <input
-              id="password"
-              type="password"
-              required
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-            />
-          </div>
+      <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+        Password
+      </label>
+      <div className="relative">
+        <input
+          id="password"
+          type={showPassword ? 'text' : 'password'}
+          required
+          className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 pr-10"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+        />
 
-          <button
-            type="submit"
-            className="w-full cursor-pointer bg-black hover:opacity-90 text-white py-2 rounded-lg transition"
-          >
-            Log In
-          </button>
+        <button
+          type="button"
+          onClick={() => setShowPassword(prev => !prev)}
+          className="absolute inset-y-0 right-2 flex items-center text-sm text-gray-600"
+        >
+          {showPassword ? 'Hide' : 'Show'}
+        </button>
+      </div>
+    </div>
+
+         <button
+  type="submit"
+  disabled={loading}
+  className={`w-full py-2 rounded-lg transition ${
+    loading
+      ? 'bg-gray-400 cursor-not-allowed'
+      : 'bg-black hover:opacity-90 text-white cursor-pointer'
+  }`}
+>
+  {loading ? 'Logging in to Account...' : 'Sign Up'}
+</button>
+
         </form>
 
         {/* Google Sign-In Placeholder */}
