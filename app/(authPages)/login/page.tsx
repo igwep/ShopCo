@@ -58,8 +58,6 @@ export default function LoginPage() {
   }
 };
 
-
-
  const handleGoogleSignIn = async () => {
   setLoading(true);
   setError(null);

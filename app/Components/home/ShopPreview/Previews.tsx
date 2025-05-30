@@ -31,7 +31,7 @@ export const NewArrivals = () => {
   .slice(0, 4);
 
   return (
-    <section className=' w-full h-auto space-y-12 py-12 md:px-34 3xl:px-64 px-4'>
+    <section className=' w-full h-auto space-y-12 py-12 md:px-32 3xl:px-64 px-4'>
         <h1 className='md:text-5xl text-3xl uppercase text-center w-full font-black '>
             Explore Our Products
         </h1>
