@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import "./globals.css";
+
 //import NavBar from "./Components/Navbar/NavBar";
 //import { Footer } from "./Components/Footer";
 //import { CartProvider } from "./Context/cartquantityContext";
@@ -37,11 +38,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${monsterrat} ${geistMono.variable} antialiased`}
       >
       
-      {/* <CartProvider> */}
-         {/*  <NavBar /> */}
         {children}
-        {/* <Footer /> */}
-      {/* </CartProvider> */}
       </body>
     </html>
   );

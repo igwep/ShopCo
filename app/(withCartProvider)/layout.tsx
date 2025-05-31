@@ -11,6 +11,26 @@ import { Toaster } from "react-hot-toast";
 import { Footer } from "../Components/Footer";
 import { AuthProvider } from "../Context/authContext";
 import { UserProvider } from "../Context/userContext";
+import { SearchProvider, useSearch } from "../Context/searchContext";
+import SearchResults from "../Components/SearchResults";
+
+// This component must be *inside* SearchProvider, so useSearch() works here:
+function LayoutContent({ children }: { children: React.ReactNode }) {
+  const { query } = useSearch();
+
+  return (
+    <>
+      <Toaster position="top-right" />
+      <NavBar />
+      {query.trim() !== "" ? (
+        <SearchResults />
+      ) : (
+        children
+      )}
+      <Footer />
+    </>
+  );
+}
 
 export default function WithCartLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -24,11 +44,9 @@ export default function WithCartLayout({ children }: { children: React.ReactNode
     }
   }, [isPending]);
 
-  // Trigger transition on pathname change
   useEffect(() => {
     startTransition(() => {
-      // This effect triggers navigation rendering
-      // No need to do anything here; just to mark start of transition
+      // Just to trigger transition on route change
     });
   }, [pathname, startTransition]);
 
@@ -36,10 +54,9 @@ export default function WithCartLayout({ children }: { children: React.ReactNode
     <AuthProvider>
       <UserProvider>
         <CartProvider>
-          <Toaster position="top-right" />
-          <NavBar />
-          {children}
-          <Footer />
+          <SearchProvider>
+            <LayoutContent>{children}</LayoutContent>
+          </SearchProvider>
         </CartProvider>
       </UserProvider>
     </AuthProvider>

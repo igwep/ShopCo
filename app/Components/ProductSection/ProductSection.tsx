@@ -249,14 +249,32 @@ const ProductSection = () => {
           <div className="grid md:grid-cols-2 gap-6">
             {product.reviews && product.reviews.length > 0 ? (
               product.reviews.map((rev, i) => (
-                <div key={i} className="border rounded-lg p-4 space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="font-semibold">{rev.reviewerName}</span>
-                    <span className="text-yellow-500">★ {rev.rating}</span>
-                  </div>
-                  <p className="text-gray-600">{rev.comment}</p>
-                  <p className="text-sm text-gray-400">{rev.date}</p>
-                </div>
+                <div key={i} className="bg-white p-6 rounded-xl border border-gray-300 shadow-md space-y-3">
+  <div className="flex items-center justify-between mb-1">
+    <div className="flex items-center flex-col-reverse gap-2 font-semibold text-lg">
+      <span className='flex items-center gap-4'>{rev.reviewerName} <span> <Image src="/SVG/check.svg" alt="verified" width={20} height={20} /></span></span>
+      <div className="flex">
+      {[...Array(5)].map((_, j) => (
+        <span
+          key={j}
+          className={`text-xl ${
+            j < rev.rating ? "text-yellow-400" : "text-gray-300"
+          }`}
+        >
+          ★
+        </span>
+      ))}
+    </div>
+      {/* Optional: verified badge */}
+      {/* <Image src="/SVG/check.svg" alt="verified" width={20} height={20} /> */}
+    </div>
+    
+  </div>
+
+  <p className="text-gray-700 italic">&quot;{rev.comment}&quot;</p>
+  <p className="text-sm text-gray-400">{rev.date}</p>
+</div>
+
               ))
             ) : (
               <p className="text-gray-500">No reviews yet.</p>

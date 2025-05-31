@@ -1,5 +1,6 @@
 import Image from "next/image";
 import StatsCounter from "./StatsCounter";
+import Link from "next/link";
 
 const HeroSection = () => {
   return (
@@ -13,12 +14,12 @@ const HeroSection = () => {
           <p className="text-lg text-gray-600 font-montserrat">
             Embrace a lifestyle of comfort and convenience with every product, designed to enhance your daily living.
           </p>
-          <a
+          <Link
             href="/Shop"
             className="bg-black inline-block text-white font-semibold py-4 px-16 rounded-full transition duration-300 hover:opacity-90"
           >
             Shop Now
-          </a>
+          </Link>
           <StatsCounter />
         </div>
 

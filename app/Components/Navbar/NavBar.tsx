@@ -1,12 +1,13 @@
 "use client";
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import Link from 'next/link';
 import { useCart } from '@/app/Context/cartquantityContext';
 import { useAuth } from '@/app/Context/authContext';
 import { toast } from 'react-hot-toast';
 import { auth } from '@/app/Firebase'; 
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSearch } from '@/app/Context/searchContext';
 
 const NavBar = () => {
   const { user } = useAuth();
@@ -15,6 +16,8 @@ const NavBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isShopExpanded, setIsShopExpanded] = useState(false);
   const { items } = useCart();
+  const { query: searchQuery, setQuery: setSearchQuery } = useSearch();
+
 
   const cartQuantities = items.reduce((acc: { [key: string]: number }, item) => {
     acc[item.id] = item.quantity;
@@ -37,6 +40,9 @@ const NavBar = () => {
     setIsMobileMenuOpen(false);
     setIsShopExpanded(false);
   };
+  useEffect(() => {
+    console.log("Search query updated:", searchQuery);
+  },[searchQuery])
 
   return (
     <nav className="flex justify-center fixed top-0 w-full py-4 bg-white shadow-md z-50">
@@ -112,30 +118,30 @@ const NavBar = () => {
                   >
                     All Products
                   </Link>
-                  <a
+                  <Link
                     href="/Shop/beauty"
                     className="block px-4 py-2 hover:bg-gray-100"
                   >
                     Beauty
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="/Shop/fragrances"
                     className="block px-4 py-2 hover:bg-gray-100"
                   >
                     Fragrances
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="/Shop/furniture"
                     className="block px-4 py-2 hover:bg-gray-100"
                   >
                     Furnitures
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="/Shop/groceries"
                     className="block px-4 py-2 hover:bg-gray-100"
                   >
                     Groceries
-                  </a>
+                  </Link>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -164,6 +170,8 @@ const NavBar = () => {
           />
           <input
             type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search for Products..."
             className="flex-1 bg-transparent outline-none text-sm"
           />
@@ -375,6 +383,8 @@ const NavBar = () => {
                   />
                   <input
                     type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search for Products..."
                     className="flex-1 bg-transparent outline-none text-sm"
                   />

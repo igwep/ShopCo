@@ -34,21 +34,29 @@ export default function LoginPage() {
     toast.success('Logged in successfully!');
     setEmail('');
     router.push('/');
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Login error:', error);
 
     let message = 'Failed to log in. Please try again.';
 
-    if (error.code === 'auth/user-not-found') {
-      message = 'User not found. Please check your email.';
-    } else if (error.code === 'auth/wrong-password') {
-      message = 'Incorrect password.';
-    } else if (error.code === 'auth/invalid-email') {
-      message = 'Invalid email format.';
-    } else if (error.code === 'auth/invalid-credential') {
-      message = 'Wrong email or password. Please try again.';
-    } else if (error.code === 'auth/too-many-requests') {
-      message = 'Too many login attempts. Please try again later.';
+    if (
+      typeof error === 'object' &&
+      error !== null &&
+      'code' in error &&
+      typeof (error as { code: unknown }).code === 'string'
+    ) {
+      const code = (error as { code: string }).code;
+      if (code === 'auth/user-not-found') {
+        message = 'User not found. Please check your email.';
+      } else if (code === 'auth/wrong-password') {
+        message = 'Incorrect password.';
+      } else if (code === 'auth/invalid-email') {
+        message = 'Invalid email format.';
+      } else if (code === 'auth/invalid-credential') {
+        message = 'Wrong email or password. Please try again.';
+      } else if (code === 'auth/too-many-requests') {
+        message = 'Too many login attempts. Please try again later.';
+      }
     }
 
     toast.error(message);
@@ -66,15 +74,23 @@ export default function LoginPage() {
     await signInWithPopup(auth, googleProvider);
     toast.success('Logged in with Google successfully!');
     router.push('/');
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Google Sign-In error:', error);
 
     let message = 'Failed to log in with Google. Please try again.';
 
-    if (error.code === 'auth/popup-closed-by-user') {
-      message = 'Google sign-in was canceled.';
-    } else if (error.code === 'auth/cancelled-popup-request') {
-      message = 'Another popup is already open.';
+    if (
+      typeof error === 'object' &&
+      error !== null &&
+      'code' in error &&
+      typeof (error as { code: unknown }).code === 'string'
+    ) {
+      const code = (error as { code: string }).code;
+      if (code === 'auth/popup-closed-by-user') {
+        message = 'Google sign-in was canceled.';
+      } else if (code === 'auth/cancelled-popup-request') {
+        message = 'Another popup is already open.';
+      }
     }
 
     toast.error(message);

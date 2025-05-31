@@ -60,19 +60,27 @@ export default function SignupPage() {
     // Don't redirect yet if waiting for email verification
     setEmailVerified(true);
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Signup error:', error);
 
     let message = 'Failed to create an account. Please try again.';
 
-    if (error.code === 'auth/email-already-in-use') {
-      message = 'This email is already in use.';
-    } else if (error.code === 'auth/invalid-email') {
-      message = 'Invalid email format.';
-    } else if (error.code === 'auth/weak-password') {
-      message = 'Password should be at least 6 characters.';
-    } else if (error.code === 'auth/operation-not-allowed') {
-      message = 'Email/password accounts are not enabled.';
+    if (
+      typeof error === 'object' &&
+      error !== null &&
+      'code' in error &&
+      typeof (error as { code?: string }).code === 'string'
+    ) {
+      const code = (error as { code: string }).code;
+      if (code === 'auth/email-already-in-use') {
+        message = 'This email is already in use.';
+      } else if (code === 'auth/invalid-email') {
+        message = 'Invalid email format.';
+      } else if (code === 'auth/weak-password') {
+        message = 'Password should be at least 6 characters.';
+      } else if (code === 'auth/operation-not-allowed') {
+        message = 'Email/password accounts are not enabled.';
+      }
     }
 
     toast.error(message);
@@ -140,9 +148,9 @@ export default function SignupPage() {
 {emailVerified && !error && (
   <p className="text-sm text-green-500 mb-4">
     A verification email has been sent to {email}. Please check your inbox.{' '}
-    <a href="/" className="text-black underline hover:opacity-90">
+    <Link href="/" className="text-black underline hover:opacity-90">
       Go to Home
-    </a>
+    </Link>
   </p>
 )}
 

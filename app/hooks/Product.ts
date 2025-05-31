@@ -34,8 +34,12 @@ export const useProduct = (slug: string) => {
         } else {
           setError("Product not found");
         }
-      } catch (err: any) {
-        console.error(err);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          console.error(err.message);
+        } else {
+          console.error(err);
+        }
         setError("Failed to fetch product");
       } finally {
         setLoading(false);
