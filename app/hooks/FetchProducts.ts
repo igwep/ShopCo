@@ -108,8 +108,12 @@ interface FetchResponse {
                       console.error("Upload error for product", product.id, uploadErr);
                     }
                   } */
-            } catch (error:any) {
-                setError(error.message || "Something went wrong");
+            } catch (error: unknown) {
+                if (error instanceof Error) {
+                    setError(error.message || "Something went wrong");
+                } else {
+                    setError("Something went wrong");
+                }
             } finally {
                 setLoading(false);
             }
