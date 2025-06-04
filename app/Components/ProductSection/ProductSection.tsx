@@ -100,7 +100,7 @@ const ProductSection = () => {
       const quantity = product ? cartQuantities[product.id] || 0 : 0;
 
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const [selectedSize, setSelectedSize] = useState("Medium");
+  //const [selectedSize, setSelectedSize] = useState("Medium");
   const [selectedTab, setSelectedTab] = useState<"info" | "reviews">("info");
 
   if (loading) 
