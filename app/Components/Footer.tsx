@@ -56,7 +56,8 @@ export const Footer = () => {
         </div>
 
         {/* Links Sections */}
-        <div>
+        <div className='col-span-1 md:col-span-4 grid grid-cols-2 md:grid-cols-4 gap-8'>
+          <div>
           <h3 className="font-semibold mb-4 tracking-wider">Company</h3>
           <ul className="space-y-4 text-sm text-gray-700">
             <li>About</li>
@@ -96,6 +97,7 @@ export const Footer = () => {
           </ul>
         </div>
       </div>
+        </div>
 
       {/* Bottom Section */}
       <div className="border-t border-gray-300 mt-10 pt-6 flex flex-col md:flex-row items-center justify-between text-sm text-gray-600 max-w-7xl mx-auto px-4">

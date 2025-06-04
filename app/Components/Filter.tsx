@@ -4,6 +4,7 @@ import { useState } from 'react';
 import * as Slider from '@radix-ui/react-slider';
 import Image from 'next/image';
 import { toast } from 'react-hot-toast';
+import { motion, AnimatePresence } from "framer-motion";
 
 type FilterProps = {
   options: string[];
@@ -135,13 +136,21 @@ const Filter = ({ options, onApplyFilters, isFilterOpen, setIsFilterOpen }: Filt
       </div>
 
       {/* Conditionally rendered  */}
-{isFilterOpen && (
-  <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 md:hidden">
-    <div className="bg-white w-full h-[80%] rounded-t-xl overflow-y-auto shadow-lg p-4">
-      {renderFilterContent()}
+<AnimatePresence>
+  {isFilterOpen && (
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 md:hidden">
+      <motion.div
+        initial={{ y: "100%", opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: "100%", opacity: 0 }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        className="bg-white w-full h-[80%] rounded-t-xl overflow-y-auto shadow-lg p-4"
+      >
+        {renderFilterContent()}
+      </motion.div>
     </div>
-  </div>
-)}
+  )}
+</AnimatePresence>
 
 
 

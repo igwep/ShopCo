@@ -16,7 +16,7 @@ const HeroSection = () => {
           </p>
           <Link
             href="/Shop"
-            className="bg-black inline-block text-white font-semibold py-4 px-16 rounded-full transition duration-300 hover:opacity-90"
+            className="bg-black w-full md:w-auto text-center inline-block text-white font-semibold py-4 px-16 rounded-full transition duration-300 hover:opacity-90"
           >
             Shop Now
           </Link>

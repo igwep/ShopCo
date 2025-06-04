@@ -165,7 +165,7 @@ const ProductSection = () => {
           <p className="text-gray-700">{product.description}</p>
 
           {/* Size selector */}
-          <div className="space-y-2">
+          {/* <div className="space-y-2">
             <p className="font-medium">Choose Size:</p>
             <div className="flex gap-3">
               {["Small","Medium","Large","X-Large"].map((sz) => (
@@ -180,7 +180,7 @@ const ProductSection = () => {
                 </button>
               ))}
             </div>
-          </div>
+          </div> */}
 
           {/* Add to Cart */}
           {quantity > 0 ? (

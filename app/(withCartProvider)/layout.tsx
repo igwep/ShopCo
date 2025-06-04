@@ -14,19 +14,16 @@ import { UserProvider } from "../Context/userContext";
 import { SearchProvider, useSearch } from "../Context/searchContext";
 import SearchResults from "../Components/SearchResults";
 
-// This component must be *inside* SearchProvider, so useSearch() works here:
+import useFetchProductsFromFireStore from "../hooks/FetchProductFIreStore";
+import Spinner from "../Components/Spinner"; // Your custom full-page spinner
+
 function LayoutContent({ children }: { children: React.ReactNode }) {
   const { query } = useSearch();
-
   return (
     <>
       <Toaster position="top-right" />
       <NavBar />
-      {query.trim() !== "" ? (
-        <SearchResults />
-      ) : (
-        children
-      )}
+      {query.trim() !== "" ? <SearchResults /> : children}
       <Footer />
     </>
   );
@@ -36,7 +33,9 @@ export default function WithCartLayout({ children }: { children: React.ReactNode
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
 
-  useEffect(() => {
+  const { loading, error } = useFetchProductsFromFireStore();
+
+   useEffect(() => {
     if (isPending) {
       NProgress.start();
     } else {
@@ -45,10 +44,27 @@ export default function WithCartLayout({ children }: { children: React.ReactNode
   }, [isPending]);
 
   useEffect(() => {
-    startTransition(() => {
-      // Just to trigger transition on route change
-    });
+    startTransition(() => {});
   }, [pathname, startTransition]);
+
+  // Show full-screen loading until products are ready
+  if (loading) {
+    return (
+      <div className="h-screen flex items-center justify-center bg-white">
+        <Spinner />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="h-screen flex items-center justify-center text-red-500 bg-white">
+        Failed to load products: {error}
+      </div>
+    );
+  }
+
+ 
 
   return (
     <AuthProvider>
