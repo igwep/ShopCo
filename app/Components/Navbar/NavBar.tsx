@@ -149,14 +149,9 @@ const NavBar = () => {
 
           {/* Other Nav Items */}
           <Link href="#" className="hover:text-black">
-            On Sale
+            Top Selling
           </Link>
-          <a href="#" className="hover:text-black">
-            New Arrivals
-          </a>
-          <a href="#" className="hover:text-black">
-            Brand
-          </a>
+          
         </div>
 
         {/* Search Bar - Desktop */}
@@ -357,20 +352,7 @@ const NavBar = () => {
               >
                 On Sale
               </Link>
-              <Link
-                href="#"
-                onClick={closeMobileMenu}
-                className="block py-3 font-medium text-gray-700 border-t border-gray-100"
-              >
-                New Arrivals
-              </Link>
-              <Link
-                href="#"
-                onClick={closeMobileMenu}
-                className="block py-3 font-medium text-gray-700 border-t border-gray-100"
-              >
-                Brand
-              </Link>
+            
 
               <div className="mt-4 pt-3 border-t border-gray-200">
                 <div className="flex items-center rounded-full px-3 py-3 bg-gray-100">
