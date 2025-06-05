@@ -76,7 +76,7 @@ const handleDecrement = (id: string) => {
     styled
       ? 'w-full md:w-[48%] lg:w-[100%]' // 3 cards per row on large screens
       : 'w-full max-w-[300px]'
-  } rounded-xl text-center mb-4 mx-1.5 relative group hover:shadow-lg transition-all duration-300`}
+  } rounded-xl text-center p-1 mb-4 mx-1.5 relative group hover:shadow-lg transition-all duration-300`}
 >
   <div className="relative w-full h-[200px] md:h-[298px] bg-[#F0EEED] mb-3 rounded-xl overflow-hidden">
     {isDiscounted && (
@@ -92,9 +92,12 @@ const handleDecrement = (id: string) => {
       sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, 50vw"
     />
   </div>
-  <h3 className="text-start font-bold mb-1 h-14 line-clamp-2">
-    {product.title}
-  </h3>
+ <h3 className="text-start font-bold mb-1 h-14">
+  {product.title.length > 35
+    ? product.title.slice(0, 25) + "..."
+    : product.title}
+</h3>
+
   <div className="flex items-center justify-start text-yellow-500 mb-1">
     {[...Array(fullStars)].map((_, i) => <span key={i}>★</span>)}
     {hasHalfStar && <span>☆</span>}
