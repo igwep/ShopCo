@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛍️ Shop.co — Modern E-commerce Web App
 
-## Getting Started
+**Shop.co** is a modern, responsive e-commerce platform built with [Next.js](https://nextjs.org/), styled using [Tailwind CSS](https://tailwindcss.com/), and powered by [Firebase](https://firebase.google.com/) for authentication and database services. It offers user-friendly features like Google sign-in, product search, cart management, and more.
 
-First, run the development server:
+---
+
+## ⚙️ Tech Stack
+
+- **Frontend Framework**: [Next.js](https://nextjs.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Backend Services**: [Firebase](https://firebase.google.com/)
+  - Firebase Authentication (Email/Password + Google)
+  - Firestore Database (User & Product Data)
+  - Firebase Storage (Product images and profile pictures)
+- **State Management**: React Context API
+- **Hosting**: [Vercel](https://vercel.com/)
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the repository
 
 ```bash
+git clone https://github.com/your-username/shop.co.git
+cd shop.co
+
+npm install
+# or
+yarn install
+
+Create a project in Firebase Console, then enable:
+
+Authentication: Email/Password and Google
+
+Cloud Firestore: Create users and products collections
+
+Firebase Storage: For image uploads
+
+Then add your Firebase configuration to a .env.local file:
+NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+📁 Project Structure
+php
+Copy code
+.
+├── app/                # App directory (Next.js pages and routes)
+├── components/         # Reusable components (Navbar, Footer, ProductCard, etc.)
+├── context/            # React Context (e.g., search, auth)
+├── firebase/           # Firebase setup and utilities
+├── public/             # Static assets (images, icons, etc.)
+├── styles/             # Global styles and Tailwind base
+├── tailwind.config.js  # Tailwind CSS configuration
+├── .env.local          # Firebase environment variables
+└── README.md           # Project documentation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Planned Improvements
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+ Stripe or PayPal integration
 
-## Learn More
+ Order management and checkout functionality
 
-To learn more about Next.js, take a look at the following resources:
+ Admin dashboard for managing users and products
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+ Ratings and reviews system
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+ Wishlist / Save for Later
 
-## Deploy on Vercel
+ 🙏 Acknowledgements
+Built with ❤️ using:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Next.js
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Tailwind CSS
+
+Firebase
+
+
+---
+
+Let me know if you want to include demo URLs, screenshots, or if you're hosting on a custom domain.
