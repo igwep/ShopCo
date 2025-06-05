@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { auth, googleProvider } from '@/app/Firebase';
-import { createUserWithEmailAndPassword, signInWithPopup, sendEmailVerification, /* signOut */ } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithPopup, sendEmailVerification, signInWithRedirect, getRedirectResult /* signOut */ } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/app/Firebase';
@@ -94,17 +94,29 @@ export default function SignupPage() {
 
 
   const handleGoogleSignUp = async () => {
-    setLoading(true);
-    setError('');
-     try {
-     const result = await signInWithPopup(auth, googleProvider);
-     const user = result.user;
-     // check if user already exists in Firestore
+  setLoading(true);
+  setError('');
+
+  try {
+    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    let result;
+    if (isIOS) {
+      await signInWithRedirect(auth, googleProvider);
+      return; // iOS users will be redirected and come back later
+    } else {
+      result = await signInWithPopup(auth, googleProvider);
+    }
+
+    if (!result) return;
+
+    const user = result.user;
+
+    // Check if user already exists in Firestore
     const userRef = doc(db, 'users', user.uid);
     const userSnap = await getDoc(userRef);
 
     if (!userSnap.exists()) {
-      // Create Firestore document if new user
       await setDoc(userRef, {
         email: user.email,
         createdAt: serverTimestamp(),
@@ -113,22 +125,61 @@ export default function SignupPage() {
         address: '',
         profilePicture: user.photoURL || '',
         isAdmin: false,
-        isVerified: true, // Google users are usually considered verified
-        items: [], // Initialize with an empty array for cart items
+        isVerified: true,
+        items: [],
       });
     }
 
-      router.push('/');
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError('An unknown error occurred during Google sign up.');
-      }
+    router.push('/');
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      setError(err.message);
+    } else {
+      setError('An unknown error occurred during Google sign up.');
     }
+  } finally {
     setLoading(false);
     console.log('Google Sign-Up');
+  }
+};
+useEffect(() => {
+  const checkRedirectResult = async () => {
+    try {
+      const result = await getRedirectResult(auth);
+      if (result?.user) {
+        const user = result.user;
+
+        const userRef = doc(db, 'users', user.uid);
+        const userSnap = await getDoc(userRef);
+
+        if (!userSnap.exists()) {
+          await setDoc(userRef, {
+            email: user.email,
+            createdAt: serverTimestamp(),
+            displayName: user.displayName || '',
+            phone: user.phoneNumber || '',
+            address: '',
+            profilePicture: user.photoURL || '',
+            isAdmin: false,
+            isVerified: true,
+            items: [],
+          });
+        }
+
+        router.push('/');
+      }
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error('Redirect sign-up error:', err.message);
+      } else {
+        console.error('Redirect sign-up error:', err);
+      }
+    }
   };
+
+  checkRedirectResult();
+}, []);
+
 
   return (
     <div className="min-h-screen flex items-center font-fancyFont justify-center bg-gray-100 px-4">

@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { auth, googleProvider } from '@/app/Firebase';
-import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, getRedirectResult } from 'firebase/auth';
 import { toast } from 'react-hot-toast';
 
 export default function LoginPage() {
@@ -66,12 +66,23 @@ export default function LoginPage() {
   }
 };
 
- const handleGoogleSignIn = async () => {
+ 
+const handleGoogleSignIn = async () => {
   setLoading(true);
   setError(null);
 
   try {
-    await signInWithPopup(auth, googleProvider);
+    if (
+      typeof window !== 'undefined' &&
+      /iPhone|iPad|iPod/i.test(navigator.userAgent)
+    ) {
+      // iOS Safari fallback
+      await signInWithRedirect(auth, googleProvider);
+    } else {
+      // Default: popup sign-in
+      await signInWithPopup(auth, googleProvider);
+    }
+
     toast.success('Logged in with Google successfully!');
     router.push('/');
   } catch (error: unknown) {
@@ -100,6 +111,18 @@ export default function LoginPage() {
     setEmail('');
   }
 };
+useEffect(() => {
+  getRedirectResult(auth)
+    .then((result) => {
+      if (result?.user) {
+        toast.success('Logged in with Google!');
+        router.push('/');
+      }
+    })
+    .catch((error) => {
+      console.error('Redirect login error:', error);
+    });
+}, []);
 
 
   return (
