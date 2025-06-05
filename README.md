@@ -50,8 +50,7 @@ npm run dev
 yarn dev
 
 📁 Project Structure
-php
-Copy code
+
 .
 ├── app/                # App directory (Next.js pages and routes)
 ├── components/         # Reusable components (Navbar, Footer, ProductCard, etc.)
