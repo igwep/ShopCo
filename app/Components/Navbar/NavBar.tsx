@@ -55,11 +55,11 @@ const NavBar = () => {
         >
           {isMobileMenuOpen ? (
             <Image
-              width={20}
-              height={20}
+              width={10}
+              height={10}
               src="/SVG/x.svg"
               alt="Close menu"
-              className="w-6 h-auto"
+              className="w-3 h-auto"
             />
           ) : (
             <Image
