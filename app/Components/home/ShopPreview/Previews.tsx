@@ -43,16 +43,16 @@ export const NewArrivals = () => {
 </div>
         <ViewAllBtn to='/Shop' />
         </div>
-        <div className='border border-gray-200'>
+        <div id="topSelling" className='border border-gray-200'>
         </div>
-        <div className='flex flex-col space-y-6 justify-center items-center w-full '>
+        <div  className='flex flex-col space-y-6 justify-center items-center w-full '>
           <h2 className='md:text-5xl text-3xl text-center w-full font-black mt-12 uppercase'>Top Selling</h2>
           <div className="overflow-x-auto scrollbar-none w-full">
   <div className="flex  flex-nowrap justify-center md:w-full w-max px-4">
     <ProductCard products={topSellingProducts} />
   </div>
 </div>
-          <ViewAllBtn to='/' />
+       
         </div>
     </section>
  )

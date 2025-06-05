@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ProductCard from './ProductCards';
 import { useSearch } from '../Context/searchContext';
 import Spinner from './Spinner';
@@ -6,9 +6,13 @@ import Spinner from './Spinner';
 const SearchResults = () => {
   const { results, isLoading, error, query, setQuery } = useSearch();
 
+  // Scroll to top on mount
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
   const handleClearSearch = () => {
     setQuery('');
-    // setResults([]); // optional: clear results when query is cleared
   };
 
   if (isLoading) {

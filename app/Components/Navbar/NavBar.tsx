@@ -148,7 +148,7 @@ const NavBar = () => {
           </div>
 
           {/* Other Nav Items */}
-          <Link href="#" className="hover:text-black">
+          <Link href="#topSelling" className="hover:text-black">
             Top Selling
           </Link>
           
