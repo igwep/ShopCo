@@ -26,17 +26,17 @@ export const metadata: Metadata = {
   title: "Shop.co | Convenience E-commerce Store",
   description:
     "Shop smarter with Shop.co — your go-to online convenience store for everyday essentials.",
-  metadataBase: new URL("https://shop-co-three-blue.vercel.app/"),
+  metadataBase: new URL("https://shop-co-three-blue.vercel.app"), // no trailing slash
   openGraph: {
     title: "Shop.co | Convenience E-commerce Store",
     description:
       "Shop smarter with Shop.co — your go-to online convenience store for everyday essentials.",
-    url: "https://shop-co-three-blue.vercel.app/",
-    type: "website",
+    url: "https://shop-co-three-blue.vercel.app",
     siteName: "Shop.co",
+    type: "website",
     images: [
       {
-        url: "/images/bigS.png", 
+        url: "https://shop-co-three-blue.vercel.app/images/bigS.png", // ABSOLUTE URL
         width: 1200,
         height: 630,
         alt: "Shop.co - Your Everyday Essentials Delivered",
@@ -44,18 +44,19 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary_large_image", 
+    card: "summary_large_image",
     title: "Shop.co | Convenience E-commerce Store",
     description:
       "Shop smarter with Shop.co — your go-to online convenience store for everyday essentials.",
-    images: ["/images/bigS.png"], 
+    images: [
+      "https://shop-co-three-blue.vercel.app/images/bigS.png", // ABSOLUTE URL
+    ],
   },
   robots: {
     index: true,
     follow: true,
   },
 };
-
 
 
 export default function RootLayout({
