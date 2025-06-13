@@ -86,4 +86,3 @@ Firebase
 
 ---
 
-Let me know if you want to include demo URLs, screenshots, or if you're hosting on a custom domain.
